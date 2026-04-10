@@ -6,97 +6,41 @@
     <title>MausStore | Setup & Tech</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root {
-            --bg-color: #0f0f12;
-            --card-bg: #1a1a1e;
-            --text-color: #ffffff;
-            --accent-color: #9146ff; /* Twitch Purple */
-            --amazon-color: #ff9900;
-            --telegram-color: #0088cc;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 800px;
-            width: 100%;
-            text-align: center;
-        }
-
-        .header { margin-bottom: 30px; }
-        .header h1 { margin: 10px 0; font-size: 2.5rem; }
-
-        /* Twitch Embed */
-        .twitch-wrapper {
-            position: relative;
-            padding-bottom: 56.25%; /* Aspect Ratio 16:9 */
-            height: 0;
-            overflow: hidden;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            margin-bottom: 30px;
-        }
-        .twitch-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        /* Buttons List */
-        .links-list {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 15px;
-            border-radius: 8px;
-            text-decoration: none;
-            color: white;
-            font-weight: bold;
-            transition: transform 0.2s, filter 0.2s;
-            font-size: 1.1rem;
-        }
-
+        :root { --bg-color: #0f0f12; --text-color: #ffffff; --accent-color: #9146ff; --amazon-color: #ff9900; --telegram-color: #0088cc; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; display: flex; flex-direction: column; align-items: center; padding: 20px; }
+        .container { max-width: 800px; width: 100%; text-align: center; }
+        .twitch-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; margin-bottom: 30px; background: #000; }
+        .twitch-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        .links-list { display: flex; flex-direction: column; gap: 15px; }
+        .btn { display: flex; align-items: center; justify-content: center; padding: 15px; border-radius: 8px; text-decoration: none; color: white; font-weight: bold; transition: 0.2s; }
         .btn:hover { transform: translateY(-3px); filter: brightness(1.1); }
-        .btn i { margin-right: 10px; font-size: 1.4rem; }
-
         .btn-amazon { background-color: var(--amazon-color); color: #111; }
         .btn-twitch { background-color: var(--accent-color); }
         .btn-telegram { background-color: var(--telegram-color); }
         .btn-discord { background-color: #5865F2; }
-
-        /* Amazon Compliance Section */
-        .amazon-disclaimer {
-            margin-top: 50px;
-            padding: 20px;
-            font-size: 0.85rem;
-            color: #888;
-            border-top: 1px solid #333;
-            line-height: 1.6;
-        }
-
-        .footer { margin-top: 20px; font-size: 0.8rem; color: #555; }
-        .footer a { color: #555; text-decoration: underline; }
+        .disclaimer { margin-top: 50px; padding: 20px; font-size: 0.85rem; color: #888; border-top: 1px solid #333; }
     </style>
 </head>
 <body>
-
 <div class="container">
-    <div class="header">
-        <h1>M
+    <h1>MausStore</h1>
+    <div class="twitch-wrapper">
+        <div id="twitch-embed"></div>
+    </div>
+    <div class="links-list">
+        <a href="https://www.amazon.it/hz/wishlist/ls/1UN05MW61D27C?tag=onlymaus-21" target="_blank" class="btn btn-amazon"><i class="fab fa-amazon"></i> IL MIO SETUP COMPLETO</a>
+        <a href="https://twitch.tv/only_maus" target="_blank" class="btn btn-twitch"><i class="fab fa-twitch"></i> TWITCH LIVE</a>
+        <a href="https://t.me/only_maus" target="_blank" class="btn btn-telegram"><i class="fab fa-telegram-plane"></i> TELEGRAM</a>
+        <a href="https://discord.gg/only_maus" target="_blank" class="btn btn-discord"><i class="fab fa-discord"></i> DISCORD</a>
+    </div>
+   <div class="disclaimer">
+    <p>In qualità di Affiliato Amazon, ricevo un guadagno per ciascun acquisto idoneo.</p>
+    <p>&copy; 2026 MausStore | Creato da only_maus</p>
+</div>
+</div>
+<script src="https://player.twitch.tv/js/embed/v1.js"></script>
+<script>
+  new Twitch.Player("twitch-embed", { channel: "only_maus", width: "100%", height: "100%", parent: ["mausstore.it", "www.mausstore.it"] });
+</script>
+</body>
+</html>
