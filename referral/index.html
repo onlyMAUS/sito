@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>MausStore - Referral</title>
+    <script>
+        const path = window.location.pathname;
+        const parts = path.split('/').filter(p => p !== "");
+        const slug = parts[parts.length - 1]; 
+
+        // --- MAPPA DEI TUOI REFERRAL ---
+        // Aggiungi qui i tuoi link in futuro (es: 'nome': 'link')
+        const links = {
+            "amazon": "https://www.amazon.it/index.html?tag=onlymaus-21",
+            "discord": "https://discord.gg/AwZ3Sa2m8f",
+            "telegram": "https://t.me/+t2VmbKd9WKwzNzJk",
+            "store": "https://mausstore.it"
+        };
+
+        // Se l'utente scrive mausstore.it/referral/NOME, va al link corrispondente
+        // Altrimenti torna alla home dello store
+        let targetUrl = links[slug] || "https://mausstore.it";
+
+        window.location.href = targetUrl;
+    </script>
+</head>
+<body>Redirecting to Referral...</body>
+</html>
