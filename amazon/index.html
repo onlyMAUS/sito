@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>MausStore - Amazon</title>
+    <script>
+        // Logica di reindirizzamento intelligente
+        const path = window.location.pathname;
+        const parts = path.split('/').filter(p => p !== "");
+        const slug = parts[parts.length - 1]; // Prende l'ultima parte dell'URL
+
+        // Il tuo Tag Referral principale
+        const myTag = "onlymaus-21";
+        
+        // Destinazione predefinita: Homepage Amazon col tuo tag
+        let targetUrl = `https://www.amazon.it/index.html?tag=${myTag}`;
+
+        // Se dopo /amazon/ c'è un codice di 10 caratteri (ASIN), vai al prodotto
+        if (slug && slug.length === 10 && slug !== "amazon") {
+            targetUrl = `https://www.amazon.it/dp/${slug}?tag=${myTag}`;
+        }
+
+        // Esegue il redirect istantaneo
+        window.location.href = targetUrl;
+    </script>
+</head>
+<body>
+    <p>Reindirizzamento alla Braceria Amazon... <a href="https://www.amazon.it/index.html?tag=onlymaus-21">Clicca qui</a>.</p>
+</body>
+</html>
