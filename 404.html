@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>MausStore - Reindirizzamento...</title>
+    <script>
+        // Prende l'URL completo che l'utente ha cercato
+        const path = window.location.pathname;
+        const parts = path.split('/').filter(p => p !== "");
+        
+        // Il tuo ID Referral
+        const myTag = "onlymaus-21";
+
+        // 1. Logica per i prodotti Amazon (es: /amazon/B0XXXXXXXX)
+        if (parts.includes("amazon")) {
+            const asin = parts[parts.length - 1];
+            if (asin && asin.length === 10 && asin !== "amazon") {
+                window.location.href = `https://www.amazon.it/dp/${asin}?tag=${myTag}`;
+            } else {
+                window.location.href = `https://www.amazon.it/index.html?tag=${myTag}`;
+            }
+        } 
+        // 2. Logica per il Setup (es: /setup)
+        else if (parts.includes("setup")) {
+            window.location.href = "https://www.amazon.it/hz/wishlist/ls/1UN05MW61D27C?tag=" + myTag;
+        }
+        // 3. Fallback: Se l'URL non è riconosciuto, torna alla Home dello Store
+        else {
+            window.location.href = "https://mausstore.it/";
+        }
+    </script>
+</head>
+<body>
+    <p>Reindirizzamento in corso... <a href="https://mausstore.it/">Clicca qui</a> se non succede nulla.</p>
+</body>
+</html>
