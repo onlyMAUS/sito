@@ -6,93 +6,80 @@
     <title>onlymaus.it - Braceria Slim</title>
     <link rel="icon" type="image/png" href="img/Logo100.png">
     <style>
-        /* 🛑 RESET E STOP SCROLLBAR */
+        /* 🛑 ZERO SCROLLBAR E RESET */
         html, body {
             margin: 0; padding: 0;
             width: 100vw; height: 100vh;
-            overflow: hidden; /* Blocca scorrimento ovunque */
+            overflow: hidden; 
             background-color: #000;
             font-family: 'Segoe UI', Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
 
-        /* 📸 SCENOGRAFIA DINAMICA (Sfondo) */
+        /* 📸 SFONDO FISSO */
         .scena {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background-image: url('img/torno%20subito.png');
             background-size: cover;
             background-position: center;
-            background-repeat: no-repeat;
             z-index: 1;
         }
 
-        /* 🏗️ CONTENITORE GENERALE (Ancorato al centro della foto) */
-        .wrapper {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -45%); /* Centrato sopra il camino */
-            width: 100%; max-width: 1200px;
-            height: 90vh;
+        /* 🏗️ CONTENITORE PRINCIPALE */
+        .main-wrapper {
+            position: relative;
+            z-index: 10;
+            width: 100%; height: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
-            z-index: 10;
-            pointer-events: none;
         }
 
-        /* 🥩 TESTATA BLINDATA (Proporzionale) */
+        /* 🥩 TESTATA */
         .header-box {
-            position: absolute;
-            top: 5vh; /* Allineata tra i coni di luce superiori */
-            width: 450px; height: 150px;
+            position: relative;
+            width: 380px; height: 140px;
+            margin-top: 30px;
             display: flex;
             justify-content: center;
             align-items: center;
-            pointer-events: auto;
         }
-        .img-testata { width: 85%; z-index: 11; object-fit: contain; }
+        .header-logo {
+            width: 82%; 
+            z-index: 12;
+            object-fit: contain;
+        }
 
-        /* 📐 AREA PULSANTI COMPATTA (Coordinate fisse in pixel) */
+        /* 📐 AREA PULSANTI (Allargata per saltare il camino) */
         .area-pulsanti {
             position: absolute;
-            top: 55%; /* Spostato per stare sotto la testata */
-            width: 900px; /* Larghezza fissa per contenere i pulsanti ai lati del camino */
-            height: 400px;
+            top: 55%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 1000px; /* <--- LARGHEZZA AUMENTATA PER STARE AI LATI DEL CAMINO */
+            height: 350px;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            justify-content: space-between; /* Spinge le colonne ai bordi del contenitore */
             pointer-events: none;
         }
 
-        .column {
+        /* 🧱 COLONNE PULSANTI */
+        .colonna-pulsanti {
             display: flex;
             flex-direction: column;
-            gap: 15px; /* Spaziatura ridotta tra i pulsanti */
-            width: 220px; /* 🧱 CORNICE DEI PULSANTI RIDOTTA COSI' È PIU' PICCOLA */
+            gap: 20px; /* Spazio verticale tra i tasti */
             pointer-events: auto;
         }
 
-        /* 🧱 IL VUOTO PER IL CAMINO CENTRALE */
-        .spacer-camino {
-            width: 350px; /* Muro invisibile sopra il camino */
-            flex-shrink: 0;
-        }
-
-        /* 🔘 STILE PULSANTI (Scala ridotta) */
+        /* 🔘 PULSANTI RIMPICCIOLITI (Cornice Slim) */
         .btn {
             position: relative;
-            width: 100%; height: 70px; /* Altezza ridotta dei pulsanti */
+            width: 200px; height: 65px; 
             display: flex; justify-content: center; align-items: center;
             text-decoration: none; transition: transform 0.2s;
-            overflow: hidden;
-            border-radius: 10px;
         }
         .btn:hover { transform: scale(1.05); }
 
-        /* 🎨 GLOW E COLORI */
+        /* 🎨 EFFETTI GLOW */
         .btn::before {
             content: ''; position: absolute;
             top: 25%; left: 20%; right: 20%; bottom: 25%;
@@ -103,11 +90,11 @@
         .c-twitch   { --glow: #9146ff; }
         .c-discord  { --glow: #5865f2; }
         .c-telegram { --glow: #0088cc; }
-        .c-verde    { --glow: #2ecc71; } /* Verde 100 Euro */
+        .c-verde    { --glow: #2ecc71; }
 
         .btn-text {
             z-index: 5; color: #fff; font-weight: bold;
-            text-transform: uppercase; text-align: center; font-size: 11px; /* Testo più piccolo */
+            text-transform: uppercase; text-align: center; font-size: 10px;
             text-shadow: 2px 2px 4px #000;
             line-height: 1.2;
         }
@@ -120,18 +107,16 @@
         /* 📝 FOOTER */
         .footer {
             position: absolute; bottom: 0; width: 100%;
-            background: rgba(0, 0, 0, 0.85); padding: 10px 0;
+            background: rgba(0, 0, 0, 0.9); padding: 12px 0;
             text-align: center; font-size: 10px; color: #aaa;
-            z-index: 20; border-top: 1px solid #333;
+            border-top: 1px solid #333;
         }
 
         /* MOBILE FIX */
-        @media (max-width: 900px) {
+        @media (max-width: 1050px) {
             html, body { overflow-y: auto; }
-            .wrapper { position: relative; top: 0; left: 0; transform: none; height: auto; display: flex; flex-direction: column; align-items: center; padding-top: 150px; }
-            .area-pulsanti { position: relative; top: 0; flex-direction: column; align-items: center; width: 100%; height: auto; margin-top: 40px; }
-            .column { width: 100%; max-width: 220px; margin-bottom: 20px; }
-            .spacer-camino { display: none; }
+            .area-pulsanti { position: relative; top: 0; left: 0; transform: none; flex-direction: column; align-items: center; width: 100%; height: auto; margin-top: 20px; gap: 20px; }
+            .colonna-pulsanti { gap: 15px; }
             .footer { position: relative; }
         }
     </style>
@@ -140,14 +125,14 @@
 
     <div class="scena"></div>
 
-    <div class="wrapper">
+    <div class="main-wrapper">
         <div class="header-box">
-            <img src="img/testata.png" class="img-testata" alt="M4USS Braceria">
-            <img src="img/cornice.png" class="cornice-img" alt="Cornice">
+            <img src="img/testata.png" class="header-logo">
+            <img src="img/cornice.png" class="cornice-img">
         </div>
 
         <div class="area-pulsanti">
-            <div class="column">
+            <div class="colonna-pulsanti">
                 <a href="https://www.amazon.it/index.html?tag=onlymaus-21" target="_blank" class="btn c-amazon">
                     <span class="btn-text">!amazon</span>
                     <img src="img/cornice.png" class="cornice-img">
@@ -162,9 +147,7 @@
                 </a>
             </div>
 
-            <div class="spacer-camino"></div>
-
-            <div class="column">
+            <div class="colonna-pulsanti">
                 <a href="https://www.twitch.tv/only_maus/" target="_blank" class="btn c-twitch">
                     <span class="btn-text">Twitch</span>
                     <img src="img/cornice.png" class="cornice-img">
