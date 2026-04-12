@@ -11,46 +11,35 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-top: 30px;
+            padding-top: 20px;
         }
 
-        /* 🥩 IL CONTENITORE RETTAGOLARE (La "Bacheca") */
-        .header-rettangolare {
+        /* 🥩 LA CORNICE DEL RITAGLIO */
+        .header-crop {
+            width: 100%;
+            max-width: 500px;    /* Stringiamo la visuale laterale */
+            height: 180px;       /* Stringiamo la visuale verticale (niente portone) */
+            overflow: hidden;    /* Fondamentale: nasconde tutto ciò che sta fuori */
             position: relative;
-            width: 90%;          /* Si adatta alla larghezza dello schermo */
-            max-width: 600px;    /* Ma non diventa troppo enorme su PC */
-            height: 200px;       /* Altezza fissa per tagliare il portone */
-            overflow: hidden;    /* Fondamentale: nasconde il resto della foto */
-            border: 2px solid #ffffff; /* Una cornice bianca sottile e pulita */
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+            border: 2px solid #ffffff;
+            border-radius: 8px;  /* Angoli leggermente arrotondati, più moderno */
         }
 
         .immagine-insegna {
             width: 100%;
             height: 100%;
-            /* Inquadra l'insegna tagliando la parte bassa (il portone) */
             object-fit: cover;
-            object-position: center 25%; 
+            /* 🛠️ IL RITAGLIO VERO E PROPRIO */
+            /* Inquadra la parte superiore (22%) e aumenta lo zoom (scale 1.5) */
+            object-position: center 22%; 
+            transform: scale(1.5); 
             display: block;
-        }
-
-        /* Opzionale: un leggero oscuramento ai lati per un effetto più "dark" */
-        .shadow-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0) 20%, rgba(0,0,0,0) 80%, rgba(0,0,0,0.4) 100%);
-            z-index: 2;
-            pointer-events: none;
         }
     </style>
 </head>
 <body>
 
-    <div class="header-rettangolare">
-        <div class="shadow-overlay"></div>
+    <div class="header-crop">
         <img src="img/offline.png" alt="M4USS Header" class="immagine-insegna">
     </div>
 
