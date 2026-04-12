@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>onlymaus.it</title>
-    
     <link rel="icon" type="image/png" href="img/Logo100.png">
 
     <style>
@@ -20,54 +19,59 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            padding: 40px 10px;
-            font-family: sans-serif;
+            padding-top: 20px;
         }
 
-        /* 🖼️ BOX COMUNE PER TESTATA E TWITCH */
+        /* CONTENITORE GENERALE */
         .frame-container {
             position: relative;
-            width: 100%;
-            max-width: 600px; /* Larghezza massima */
-            margin-bottom: 40px;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
+            margin-bottom: 20px;
+            /* Questo serve a non far sbordare le immagini */
+            overflow: hidden; 
         }
 
-        /* Altezza specifica per la testata */
-        .header-box { height: 160px; border-radius: 8px; }
-        
-        /* Altezza specifica per Twitch (proporzione 16:9) */
-        .twitch-box { height: 340px; border-radius: 12px; }
+        /* 1. TESTATA (M4USS) */
+        .header-box {
+            width: 400px; /* Larghezza proporzionata */
+            height: 120px;
+        }
 
-        /* 🥩 IL RITAGLIO DELL'INSEGNA */
         .insegna-crop {
             position: absolute;
-            width: 96%;
-            height: 90%;
+            width: 88%; /* Lascia spazio ai bordi della cornice */
+            height: 75%;
             overflow: hidden;
             z-index: 1;
         }
+
         .insegna-crop img {
             width: 100%;
             height: auto;
-            transform: scale(3.2); /* Zoom sulla bistecca/M4USS */
-            margin-top: 240px;      /* Centra l'insegna verticalmente */
+            /* REGOLAZIONE PERFETTA PER LA BISTECCA */
+            transform: scale(2.4); 
+            margin-top: 145px; 
             display: block;
         }
 
-        /* 🎥 EMBED DI TWITCH */
-        .twitch-embed {
-            position: absolute;
-            width: 94%;
-            height: 88%;
-            z-index: 1;
-            border: none;
+        /* 2. TWITCH BOX */
+        .twitch-box {
+            width: 600px;  /* Più grande come nello screenshot */
+            height: 350px;
         }
 
-        /* 🖼️ LA CORNICE (Stirata per entrambi) */
+        .twitch-embed {
+            position: absolute;
+            width: 92%;  /* Centrato dentro la cornice */
+            height: 85%;
+            z-index: 1;
+            border: none;
+            background: #000;
+        }
+
+        /* LA CORNICE (Sia sopra che sotto) */
         .cornice-overlay {
             position: absolute;
             top: 0;
@@ -75,16 +79,17 @@
             width: 100%;
             height: 100%;
             z-index: 2;
-            object-fit: fill; /* Adatta la cornice alla forma rettangolare */
+            object-fit: fill;
             pointer-events: none;
         }
+
     </style>
 </head>
 <body>
 
     <div class="frame-container header-box">
         <div class="insegna-crop">
-            <img src="img/offline.png" alt="M4USS Header">
+            <img src="img/offline.png" alt="M4USS">
         </div>
         <img src="img/cornice.png" alt="Cornice" class="cornice-overlay">
     </div>
@@ -93,7 +98,7 @@
         <iframe
             src="https://player.twitch.tv/?channel=only_maus&parent=onlymaus.github.io&parent=onlymaus.it"
             class="twitch-embed"
-            allowfullscreen>
+            allowfullscreen="true">
         </iframe>
         <img src="img/cornice.png" alt="Cornice" class="cornice-overlay">
     </div>
