@@ -32,6 +32,7 @@
             align-items: center;
             margin-bottom: 30px;
             overflow: hidden;
+            background-color: rgba(0, 0, 0, 0.4); /* Sfondo semi-trasparente */
         }
 
         /* 🥩 TESTATA */
@@ -39,6 +40,7 @@
             width: 100%;
             max-width: 480px;
             height: 140px;
+            border-radius: 5px;
         }
 
         .insegna-crop {
@@ -52,29 +54,47 @@
         .insegna-crop img {
             width: 100%;
             height: auto;
-            transform: scale(2.6); 
-            margin-top: 155px; 
+            transform: scale(2.6); /* Zoom per isolare M4USS */
+            margin-top: 155px;      /* Centratura verticale */
             display: block;
         }
 
         /* 💜 PULSANTE TWITCH */
         .twitch-btn-box {
-            width: 280px;
+            width: 100%;
+            max-width: 300px;
             height: 100px;
             cursor: pointer;
             text-decoration: none;
-            transition: transform 0.2s;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .twitch-btn-box:hover {
             transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.6); /* Bagliore al passaggio */
+        }
+
+        /* CONTENUTO PULSANTE: LOGO + TESTO */
+        .btn-content {
+            display: flex;
+            align-items: center;
+            z-index: 3; /* Sopra la cornice */
+        }
+
+        .twitch-icon {
+            width: 40px;
+            height: 40px;
+            margin-right: 15px;
+            filter: drop-shadow(0 0 5px #fff); /* Bagliore sull'icona */
         }
 
         .btn-text {
-            position: absolute;
-            z-index: 1;
             color: #fff;
-            font-size: 22px;
+            font-size: 28px;
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -89,7 +109,7 @@
             width: 100%;
             height: 100%;
             z-index: 2;
-            object-fit: fill;
+            object-fit: fill; /* Adatta la cornice alla forma rettangolare */
             pointer-events: none;
         }
     </style>
@@ -104,7 +124,12 @@
     </div>
 
     <a href="https://www.twitch.tv/only_maus" target="_blank" class="frame-box twitch-btn-box">
-        <span class="btn-text">Entra in Live</span>
+        <div class="btn-content">
+            <svg class="twitch-icon" viewBox="0 0 24 24" fill="#fff" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11.571 4.714h1.715v5.143H11.571zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.857L10.286 17.143V14.571H6V1.714h14.571z"/>
+            </svg>
+            <span class="btn-text">Twitch</span>
+        </div>
         <img src="img/cornice.png" alt="Cornice" class="cornice-neon">
     </a>
 
