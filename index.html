@@ -11,51 +11,47 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-top: 50px; /* Distanza dall'alto del browser */
+            padding-top: 30px;
         }
 
-        /* 1. Il Contenitore Master (Il Cerchio Magico) */
-        .cornice-ritagliata-container {
+        /* 🥩 IL CONTENITORE RETTAGOLARE (La "Bacheca") */
+        .header-rettangolare {
             position: relative;
-            width: 320px;  /* Dimensione totale della cornice */
-            height: 320px;
-            overflow: hidden; /* Taglia l'immagine dell'insegna a cerchio */
-            border-radius: 50%; /* Lo rende un cerchio perfetto */
-            box-shadow: 0 0 25px rgba(255, 255, 255, 0.1); /* Leggero bagliore per staccare dal nero */
+            width: 90%;          /* Si adatta alla larghezza dello schermo */
+            max-width: 600px;    /* Ma non diventa troppo enorme su PC */
+            height: 200px;       /* Altezza fissa per tagliare il portone */
+            overflow: hidden;    /* Fondamentale: nasconde il resto della foto */
+            border: 2px solid #ffffff; /* Una cornice bianca sottile e pulita */
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
         }
 
-        /* 2. L'immagine dell'insegna (SOTTO) */
-        .immagine-insegna-sfondo {
-            position: absolute;
-            width: 110%;  /* Leggermente più grande per coprire bene l'area interna */
-            height: 110%;
-            top: -5%;     /* Centra lo zoom */
-            left: -5%;    /* Centra lo zoom */
+        .immagine-insegna {
+            width: 100%;
+            height: 100%;
+            /* Inquadra l'insegna tagliando la parte bassa (il portone) */
             object-fit: cover;
-            /* SEGRETO N.1: Posizionamento verticale preciso (28% tiene l'insegna alta) */
-            object-position: center 28%; 
-            z-index: 1;
+            object-position: center 25%; 
+            display: block;
         }
 
-        /* 3. La cornice (SOPRA) */
-        .immagine-cornice-sopra {
+        /* Opzionale: un leggero oscuramento ai lati per un effetto più "dark" */
+        .shadow-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: contain; /* Mantiene la cornice perfetta senza deformarla */
+            background: linear-gradient(90deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0) 20%, rgba(0,0,0,0) 80%, rgba(0,0,0,0.4) 100%);
             z-index: 2;
-            pointer-events: none; /* Rende la cornice 'trasparente' al click */
+            pointer-events: none;
         }
     </style>
 </head>
 <body>
 
-    <div class="cornice-ritagliata-container">
-        <img src="img/offline.png" alt="M4USS" class="immagine-insegna-sfondo">
-        
-        <img src="img/cornice.png" alt="Cornice" class="immagine-cornice-sopra">
+    <div class="header-rettangolare">
+        <div class="shadow-overlay"></div>
+        <img src="img/offline.png" alt="M4USS Header" class="immagine-insegna">
     </div>
 
 </body>
