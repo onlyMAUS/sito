@@ -7,149 +7,85 @@
     <link rel="icon" type="image/png" href="img/Logo100.png">
     <style>
         body {
-            margin: 0;
-            padding: 0;
+            margin: 0; padding: 0;
             background-image: url('img/torno%20subito.png');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            background-color: #000;
-            font-family: 'Segoe UI', Arial, sans-serif;
-            color: white;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            background-size: cover; background-position: center;
+            background-attachment: fixed; background-color: #000;
+            font-family: 'Segoe UI', Arial, sans-serif; color: white;
+            min-height: 100vh; display: flex; flex-direction: column; align-items: center;
         }
 
         /* 🥩 TESTATA */
         .header-container {
-            position: relative;
-            width: 450px;
-            height: 150px;
-            margin-top: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            position: relative; width: 450px; height: 150px;
+            margin-top: 20px; display: flex; justify-content: center; align-items: center;
             z-index: 10;
         }
         .img-testata { width: 85%; z-index: 11; }
 
-        /* 📐 LAYOUT A TRE COLONNE PER SALVARE IL CAMINO */
+        /* 📐 LAYOUT - PULSANTI ESTERNI (SALVA-CAMINO) */
         .main-content {
             display: grid;
-            /* Ristrutturiamo le colonne: centralissimo vuoto */
-            grid-template-columns: 1fr 1.5fr 1fr; 
-            width: 98%; /* Massima larghezza */
-            max-width: 1500px;
-            margin-top: 100px; /* Regoliamo l'altezza sotto le applique */
-            flex-grow: 1;
-            align-items: start;
-            /* 🛠️ Aggiungiamo padding laterale per forzare l'esterno */
-            padding: 0 40px; 
-            box-sizing: border-box;
+            grid-template-columns: 1fr 2fr 1fr; 
+            width: 95%; max-width: 1600px;
+            margin-top: 100px; flex-grow: 1;
+            padding: 0 60px; box-sizing: border-box;
         }
 
-        .column {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
+        .column { display: flex; flex-direction: column; gap: 30px; }
+        .center-gap { pointer-events: none; }
 
-        .center-gap {
-            /* Questa colonna resta vuota per mostrare il camino */
-            pointer-events: none;
-        }
-
-        /* 🔘 PULSANTI INCORNICIATI E COLORATI CHIRURGICAMENTE */
+        /* 🔘 PULSANTI */
         .btn-frame {
             position: relative;
-            width: 100%;
-            max-width: 320px;
-            height: 85px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-decoration: none;
-            transition: transform 0.2s;
+            width: 100%; max-width: 300px; height: 85px;
+            display: flex; justify-content: center; align-items: center;
+            text-decoration: none; transition: transform 0.2s;
             margin: 0 auto;
-            border-radius: 12px; /* Arrotondamento di base */
-            overflow: hidden; /* Fondamentale per il trucco del colore */
+            overflow: hidden;
         }
 
         .btn-frame:hover { transform: scale(1.05); }
 
-        /* 🎨 TRUCCO PER IL COLORE DENTRO LA CORNICE */
+        /* 🎨 GLOW INTERNO (ELLISSE) - NON ESCE DAI BORDI */
         .btn-frame::before {
             content: '';
             position: absolute;
-            top: 5px; /* Lasciamo un piccolo margine interno */
-            left: 5px;
-            right: 5px;
-            bottom: 5px;
-            z-index: 1; /* Sotto la cornice rossa */
-            border-radius: 8px; /* Arrotondamento del gradiente */
-            opacity: 0.6; /* Opacità regolata */
+            top: 15%; left: 15%; right: 15%; bottom: 15%;
+            z-index: 1;
+            clip-path: ellipse(40% 35% at 50% 50%);
+            opacity: 0.7;
+            filter: blur(10px); /* Sfuma i bordi del colore */
         }
 
-        /* Gradienti specifici applicati allo pseudo-elemento */
-        .bg-amazon::before { background: linear-gradient(to top, #ff9900, transparent); }
-        .bg-twitch::before { background: linear-gradient(to top, #9146ff, transparent); }
-        .bg-discord::before { background: linear-gradient(to top, #5865f2, transparent); }
-        .bg-telegram::before { background: linear-gradient(to top, #0088cc, transparent); }
+        .bg-amazon::before { background: radial-gradient(circle, #ff9900, transparent); }
+        .bg-twitch::before { background: radial-gradient(circle, #9146ff, transparent); }
+        .bg-discord::before { background: radial-gradient(circle, #5865f2, transparent); }
+        .bg-telegram::before { background: radial-gradient(circle, #0088cc, transparent); }
 
         .btn-text {
-            z-index: 5; /* Sopra a tutto */
-            color: #fff;
-            font-weight: bold;
-            text-transform: uppercase;
-            text-align: center;
-            font-size: 14px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,1); /* Ombra nera profonda per leggibilità */
-            padding: 0 15px;
+            z-index: 5; color: #fff; font-weight: bold;
+            text-transform: uppercase; text-align: center; font-size: 13px;
+            text-shadow: 2px 2px 5px rgba(0,0,0,1);
+            padding: 0 20px;
         }
 
         .cornice {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 4; /* Sopra al colore, sotto il testo */
-            object-fit: fill;
-            pointer-events: none;
+            z-index: 4; object-fit: fill; pointer-events: none;
         }
-
-        /* 🛑 LIVE DOT */
-        .live-dot {
-            height: 8px; width: 8px;
-            background-color: #ff0000;
-            border-radius: 50%;
-            display: inline-block;
-            margin-right: 6px;
-            box-shadow: 0 0 8px #ff0000;
-            animation: pulse 1.5s infinite;
-        }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
 
         /* 📝 FOOTER */
         .footer-disclaimer {
-            width: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            padding: 20px 10px;
-            text-align: center;
-            font-size: 12px;
-            color: #aaa;
-            margin-top: 40px;
-            z-index: 20;
+            width: 100%; background: rgba(0, 0, 0, 0.9);
+            padding: 25px 10px; text-align: center; font-size: 12px;
+            color: #aaa; margin-top: 50px; border-top: 1px solid #333;
         }
 
-        /* 📱 RESPONSIVE PER MOBILE */
-        @media (max-width: 1000px) {
-            .main-content { 
-                grid-template-columns: 1fr; 
-                margin-top: 40px;
-                padding: 0 20px;
-            }
-            .center-gap { display: none; }
-            .column { margin-bottom: 20px; }
+        @media (max-width: 1100px) {
+            .main-content { grid-template-columns: 1fr; margin-top: 40px; padding: 0 20px; }
+            .column { margin-bottom: 30px; }
         }
     </style>
 </head>
@@ -157,7 +93,7 @@
 
     <div class="header-container">
         <img src="img/testata.png" class="img-testata" alt="M4USS">
-        <img src="img/cornice.png" class="cornice" alt="Cornice">
+        <img src="img/cornice.png" class="cornice">
     </div>
 
     <div class="main-content">
@@ -176,7 +112,7 @@
 
         <div class="column">
             <a href="https://www.twitch.tv/only_maus/" target="_blank" class="btn-frame bg-twitch">
-                <span class="btn-text"><span class="live-dot"></span>Twitch</span>
+                <span class="btn-text">Twitch</span>
                 <img src="img/cornice.png" class="cornice">
             </a>
             <a href="https://discord.gg/AwZ3Sa2m8f" target="_blank" class="btn-frame bg-discord">
