@@ -8,7 +8,6 @@
     <link rel="icon" type="image/png" href="img/Logo100.png">
 
     <style>
-        /* 1. RESET E SFONDO GENERALE */
         body {
             margin: 0;
             padding: 0;
@@ -21,45 +20,54 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            overflow-x: hidden;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 40px 10px;
+            font-family: sans-serif;
         }
 
-        /* 2. CONTENITORE DELLA TESTATA (L'OBLO') */
-        .header-container {
+        /* 🖼️ BOX COMUNE PER TESTATA E TWITCH */
+        .frame-container {
             position: relative;
-            width: 320px; 
-            height: 320px;
-            margin-top: 40px;
+            width: 100%;
+            max-width: 600px; /* Larghezza massima */
+            margin-bottom: 40px;
             display: flex;
             justify-content: center;
             align-items: center;
-            /* Taglia l'immagine dell'insegna seguendo il bordo della cornice */
             overflow: hidden;
-            border-radius: 50%;
         }
 
-        /* 3. L'INSEGNA M4USS (DENTRO L'OBLO') */
-        .insegna-image {
+        /* Altezza specifica per la testata */
+        .header-box { height: 160px; border-radius: 8px; }
+        
+        /* Altezza specifica per Twitch (proporzione 16:9) */
+        .twitch-box { height: 340px; border-radius: 12px; }
+
+        /* 🥩 IL RITAGLIO DELL'INSEGNA */
+        .insegna-crop {
             position: absolute;
+            width: 96%;
+            height: 90%;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .insegna-crop img {
             width: 100%;
             height: auto;
-            
-            /* 🥩 REGOLAZIONE DI PRECISIONE PER CENTRARE LA BISTECCA 🥩 */
-            /* Aumentiamo lo zoom per isolare la M e la scritta */
-            transform: scale(2.6); 
-            
-            /* Regola 'top' per far scendere l'insegna e nascondere il portone.
-               Se vedi ancora il portone, aumenta a 170px.
-               Se tagli la scritta M4USS, scendi a 140px. */
-            top: 158px; 
-            left: 0;
-            
-            z-index: 1;
+            transform: scale(3.2); /* Zoom sulla bistecca/M4USS */
+            margin-top: 240px;      /* Centra l'insegna verticalmente */
             display: block;
         }
 
-        /* 4. LA CORNICE (SOPRA L'INSEGNA) */
+        /* 🎥 EMBED DI TWITCH */
+        .twitch-embed {
+            position: absolute;
+            width: 94%;
+            height: 88%;
+            z-index: 1;
+            border: none;
+        }
+
+        /* 🖼️ LA CORNICE (Stirata per entrambi) */
         .cornice-overlay {
             position: absolute;
             top: 0;
@@ -67,32 +75,28 @@
             width: 100%;
             height: 100%;
             z-index: 2;
-            object-fit: contain; /* Mantiene la forma perfetta della cornice */
-            pointer-events: none; /* Non intralcia il click/tocco */
+            object-fit: fill; /* Adatta la cornice alla forma rettangolare */
+            pointer-events: none;
         }
-
-        /* 5. SPAZIO PER I CONTENUTI FUTURI */
-        .content {
-            margin-top: 20px;
-            width: 90%;
-            max-width: 600px;
-            text-align: center;
-            color: white;
-            z-index: 10;
-        }
-
     </style>
 </head>
 <body>
 
-    <div class="header-container">
-        <img src="img/offline.png" alt="M4USS Insegna" class="insegna-image">
-        
+    <div class="frame-container header-box">
+        <div class="insegna-crop">
+            <img src="img/offline.png" alt="M4USS Header">
+        </div>
         <img src="img/cornice.png" alt="Cornice" class="cornice-overlay">
     </div>
 
-    <div class="content">
-        </div>
+    <div class="frame-container twitch-box">
+        <iframe
+            src="https://player.twitch.tv/?channel=only_maus&parent=onlymaus.github.io&parent=onlymaus.it"
+            class="twitch-embed"
+            allowfullscreen>
+        </iframe>
+        <img src="img/cornice.png" alt="Cornice" class="cornice-overlay">
+    </div>
 
 </body>
 </html>
