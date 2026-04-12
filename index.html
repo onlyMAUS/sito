@@ -22,7 +22,7 @@
             align-items: center;
         }
 
-        /* TESTATA */
+        /* 🥩 TESTATA */
         .header-container {
             position: relative;
             width: 450px;
@@ -35,15 +35,19 @@
         }
         .img-testata { width: 85%; z-index: 11; }
 
-        /* LAYOUT A TRE COLONNE PER SALVARE IL CAMINO */
+        /* 📐 LAYOUT A TRE COLONNE PER SALVARE IL CAMINO */
         .main-content {
             display: grid;
-            grid-template-columns: 1fr 1.2fr 1fr; /* Colonna centrale più larga per il camino */
-            width: 95%;
-            max-width: 1400px;
-            margin-top: 100px; /* Altezza regolata sotto le applique */
+            /* Ristrutturiamo le colonne: centralissimo vuoto */
+            grid-template-columns: 1fr 1.5fr 1fr; 
+            width: 98%; /* Massima larghezza */
+            max-width: 1500px;
+            margin-top: 100px; /* Regoliamo l'altezza sotto le applique */
             flex-grow: 1;
             align-items: start;
+            /* 🛠️ Aggiungiamo padding laterale per forzare l'esterno */
+            padding: 0 40px; 
+            box-sizing: border-box;
         }
 
         .column {
@@ -57,7 +61,7 @@
             pointer-events: none;
         }
 
-        /* PULSANTI */
+        /* 🔘 PULSANTI INCORNICIATI E COLORATI CHIRURGICAMENTE */
         .btn-frame {
             position: relative;
             width: 100%;
@@ -69,35 +73,51 @@
             text-decoration: none;
             transition: transform 0.2s;
             margin: 0 auto;
+            border-radius: 12px; /* Arrotondamento di base */
+            overflow: hidden; /* Fondamentale per il trucco del colore */
         }
 
         .btn-frame:hover { transform: scale(1.05); }
 
+        /* 🎨 TRUCCO PER IL COLORE DENTRO LA CORNICE */
+        .btn-frame::before {
+            content: '';
+            position: absolute;
+            top: 5px; /* Lasciamo un piccolo margine interno */
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            z-index: 1; /* Sotto la cornice rossa */
+            border-radius: 8px; /* Arrotondamento del gradiente */
+            opacity: 0.6; /* Opacità regolata */
+        }
+
+        /* Gradienti specifici applicati allo pseudo-elemento */
+        .bg-amazon::before { background: linear-gradient(to top, #ff9900, transparent); }
+        .bg-twitch::before { background: linear-gradient(to top, #9146ff, transparent); }
+        .bg-discord::before { background: linear-gradient(to top, #5865f2, transparent); }
+        .bg-telegram::before { background: linear-gradient(to top, #0088cc, transparent); }
+
         .btn-text {
-            z-index: 5;
+            z-index: 5; /* Sopra a tutto */
             color: #fff;
             font-weight: bold;
             text-transform: uppercase;
             text-align: center;
             font-size: 14px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.9);
+            text-shadow: 2px 2px 4px rgba(0,0,0,1); /* Ombra nera profonda per leggibilità */
+            padding: 0 15px;
         }
 
         .cornice {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 4;
+            z-index: 4; /* Sopra al colore, sotto il testo */
             object-fit: fill;
             pointer-events: none;
         }
 
-        /* COLORI GRADIENTI */
-        .bg-amazon { background: linear-gradient(to top, rgba(255, 153, 0, 0.5), transparent); }
-        .bg-twitch { background: linear-gradient(to top, rgba(145, 70, 255, 0.5), transparent); }
-        .bg-discord { background: linear-gradient(to top, rgba(88, 101, 242, 0.5), transparent); }
-        .bg-telegram { background: linear-gradient(to top, rgba(0, 136, 204, 0.5), transparent); }
-
-        /* LIVE DOT */
+        /* 🛑 LIVE DOT */
         .live-dot {
             height: 8px; width: 8px;
             background-color: #ff0000;
@@ -109,7 +129,7 @@
         }
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
 
-        /* FOOTER */
+        /* 📝 FOOTER */
         .footer-disclaimer {
             width: 100%;
             background: rgba(0, 0, 0, 0.85);
@@ -118,13 +138,15 @@
             font-size: 12px;
             color: #aaa;
             margin-top: 40px;
+            z-index: 20;
         }
 
-        /* RESPONSIVE PER MOBILE */
+        /* 📱 RESPONSIVE PER MOBILE */
         @media (max-width: 1000px) {
             .main-content { 
                 grid-template-columns: 1fr; 
                 margin-top: 40px;
+                padding: 0 20px;
             }
             .center-gap { display: none; }
             .column { margin-bottom: 20px; }
