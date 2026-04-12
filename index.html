@@ -3,101 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>onlymaus.it</title>
+    <title>onlymaus.it - Braceria Slim</title>
     <link rel="icon" type="image/png" href="img/Logo100.png">
     <style>
         /* 🛑 RESET E STOP SCROLLBAR */
         html, body {
             margin: 0; padding: 0;
-            width: 100%; height: 100vh;
-            overflow: hidden; 
+            width: 100vw; height: 100vh;
+            overflow: hidden; /* Blocca scorrimento ovunque */
             background-color: #000;
             font-family: 'Segoe UI', Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        /* 📸 SFONDO FISSO */
+        /* 📸 SCENOGRAFIA DINAMICA (Sfondo) */
         .scena {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background-image: url('img/torno%20subito.png');
             background-size: cover;
             background-position: center;
+            background-repeat: no-repeat;
             z-index: 1;
         }
 
-        /* 🏗️ CONTENITORE MASTER CENTRATO */
-        .main-wrapper {
-            position: relative;
-            z-index: 10;
-            width: 100%; height: 100%;
+        /* 🏗️ CONTENITORE GENERALE (Ancorato al centro della foto) */
+        .wrapper {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -45%); /* Centrato sopra il camino */
+            width: 100%; max-width: 1200px;
+            height: 90vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-        }
-
-        /* 🥩 TESTATA: Dimensioni bloccate per non sparire */
-        .header-box {
-            position: relative;
-            width: 380px; /* Dimensione ideale per entrambi i monitor */
-            height: 140px;
-            margin-top: 30px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .header-logo {
-            width: 82%; 
-            z-index: 12;
-            object-fit: contain;
-        }
-
-        /* 📐 AREA PULSANTI SOPRA IL CAMINO */
-        /* Usiamo pixel fissi per il contenitore per evitare che i pulsanti "ballino" */
-        .area-pulsanti {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -42%);
-            width: 900px; /* Larghezza fissa: i pulsanti staranno SEMPRE ai lati del camino */
-            height: 400px;
+            z-index: 10;
             pointer-events: none;
         }
 
-        .btn {
+        /* 🥩 TESTATA BLINDATA (Proporzionale) */
+        .header-box {
             position: absolute;
-            width: 240px; height: 75px;
-            display: flex; justify-content: center; align-items: center;
-            text-decoration: none; transition: transform 0.2s;
+            top: 5vh; /* Allineata tra i coni di luce superiori */
+            width: 450px; height: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             pointer-events: auto;
         }
+        .img-testata { width: 85%; z-index: 11; object-fit: contain; }
+
+        /* 📐 AREA PULSANTI COMPATTA (Coordinate fisse in pixel) */
+        .area-pulsanti {
+            position: absolute;
+            top: 55%; /* Spostato per stare sotto la testata */
+            width: 900px; /* Larghezza fissa per contenere i pulsanti ai lati del camino */
+            height: 400px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            pointer-events: none;
+        }
+
+        .column {
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* Spaziatura ridotta tra i pulsanti */
+            width: 220px; /* 🧱 CORNICE DEI PULSANTI RIDOTTA COSI' È PIU' PICCOLA */
+            pointer-events: auto;
+        }
+
+        /* 🧱 IL VUOTO PER IL CAMINO CENTRALE */
+        .spacer-camino {
+            width: 350px; /* Muro invisibile sopra il camino */
+            flex-shrink: 0;
+        }
+
+        /* 🔘 STILE PULSANTI (Scala ridotta) */
+        .btn {
+            position: relative;
+            width: 100%; height: 70px; /* Altezza ridotta dei pulsanti */
+            display: flex; justify-content: center; align-items: center;
+            text-decoration: none; transition: transform 0.2s;
+            overflow: hidden;
+            border-radius: 10px;
+        }
         .btn:hover { transform: scale(1.05); }
-
-        /* 📍 COORDINATE FISSE (Addio percentuali pazze) */
-        /* Sinistra */
-        .p-amazon    { top: 10px; left: 0; }
-        .p-setup     { top: 100px; left: 0; }
-        .p-donazione { top: 190px; left: 0; }
-
-        /* Destra */
-        .p-twitch    { top: 10px; right: 0; }
-        .p-discord   { top: 100px; right: 0; }
-        .p-telegram  { top: 190px; right: 0; }
 
         /* 🎨 GLOW E COLORI */
         .btn::before {
             content: ''; position: absolute;
-            top: 25%; left: 15%; right: 15%; bottom: 25%;
-            z-index: 1; opacity: 0.7; filter: blur(15px);
+            top: 25%; left: 20%; right: 20%; bottom: 25%;
+            z-index: 1; opacity: 0.7; filter: blur(12px);
             background: radial-gradient(circle, var(--glow), transparent 70%);
         }
         .c-amazon   { --glow: #ff9900; }
         .c-twitch   { --glow: #9146ff; }
         .c-discord  { --glow: #5865f2; }
         .c-telegram { --glow: #0088cc; }
-        .c-verde    { --glow: #2ecc71; } /* Il verde smeraldo */
+        .c-verde    { --glow: #2ecc71; } /* Verde 100 Euro */
 
         .btn-text {
             z-index: 5; color: #fff; font-weight: bold;
-            text-transform: uppercase; text-align: center; font-size: 11px;
+            text-transform: uppercase; text-align: center; font-size: 11px; /* Testo più piccolo */
             text-shadow: 2px 2px 4px #000;
             line-height: 1.2;
         }
@@ -110,16 +120,18 @@
         /* 📝 FOOTER */
         .footer {
             position: absolute; bottom: 0; width: 100%;
-            background: rgba(0, 0, 0, 0.9); padding: 12px 0;
+            background: rgba(0, 0, 0, 0.85); padding: 10px 0;
             text-align: center; font-size: 10px; color: #aaa;
-            border-top: 1px solid #333;
+            z-index: 20; border-top: 1px solid #333;
         }
 
-        /* MOBILE */
+        /* MOBILE FIX */
         @media (max-width: 900px) {
             html, body { overflow-y: auto; }
-            .area-pulsanti { position: relative; top: 0; left: 0; transform: none; display: flex; flex-direction: column; align-items: center; width: 100%; height: auto; margin-top: 40px; }
-            .btn { position: relative; top: auto; left: auto; right: auto; margin-bottom: 20px; }
+            .wrapper { position: relative; top: 0; left: 0; transform: none; height: auto; display: flex; flex-direction: column; align-items: center; padding-top: 150px; }
+            .area-pulsanti { position: relative; top: 0; flex-direction: column; align-items: center; width: 100%; height: auto; margin-top: 40px; }
+            .column { width: 100%; max-width: 220px; margin-bottom: 20px; }
+            .spacer-camino { display: none; }
             .footer { position: relative; }
         }
     </style>
@@ -128,38 +140,44 @@
 
     <div class="scena"></div>
 
-    <div class="main-wrapper">
+    <div class="wrapper">
         <div class="header-box">
-            <img src="img/testata.png" class="header-logo">
-            <img src="img/cornice.png" class="cornice-img">
+            <img src="img/testata.png" class="img-testata" alt="M4USS Braceria">
+            <img src="img/cornice.png" class="cornice-img" alt="Cornice">
         </div>
 
         <div class="area-pulsanti">
-            <a href="https://www.amazon.it/index.html?tag=onlymaus-21" target="_blank" class="btn p-amazon c-amazon">
-                <span class="btn-text">!amazon</span>
-                <img src="img/cornice.png" class="cornice-img">
-            </a>
-            <a href="https://www.amazon.it/hz/wishlist/ls/1UN05MW61D27C?tag=onlymaus-21" target="_blank" class="btn p-setup c-amazon">
-                <span class="btn-text">!setup</span>
-                <img src="img/cornice.png" class="cornice-img">
-            </a>
-            <a href="https://streamelements.com/only_maus/tip" target="_blank" class="btn p-donazione c-verde">
-                <span class="btn-text">💰 !donazione 💰</span>
-                <img src="img/cornice.png" class="cornice-img">
-            </a>
+            <div class="column">
+                <a href="https://www.amazon.it/index.html?tag=onlymaus-21" target="_blank" class="btn c-amazon">
+                    <span class="btn-text">!amazon</span>
+                    <img src="img/cornice.png" class="cornice-img">
+                </a>
+                <a href="https://www.amazon.it/hz/wishlist/ls/1UN05MW61D27C?tag=onlymaus-21" target="_blank" class="btn c-amazon">
+                    <span class="btn-text">!setup</span>
+                    <img src="img/cornice.png" class="cornice-img">
+                </a>
+                <a href="https://streamelements.com/only_maus/tip" target="_blank" class="btn c-verde">
+                    <span class="btn-text">💰 !donazione 💰</span>
+                    <img src="img/cornice.png" class="cornice-img">
+                </a>
+            </div>
 
-            <a href="https://www.twitch.tv/only_maus/" target="_blank" class="btn p-twitch c-twitch">
-                <span class="btn-text">Twitch</span>
-                <img src="img/cornice.png" class="cornice-img">
-            </a>
-            <a href="https://discord.gg/AwZ3Sa2m8f" target="_blank" class="btn p-discord c-discord">
-                <span class="btn-text">🥩 Discord 🥩<br>!discord</span>
-                <img src="img/cornice.png" class="cornice-img">
-            </a>
-            <a href="https://t.me/+t2VmbKd9WKwzNzJk" target="_blank" class="btn p-telegram c-telegram">
-                <span class="btn-text">🍳 Telegram 🍳<br>!telegram</span>
-                <img src="img/cornice.png" class="cornice-img">
-            </a>
+            <div class="spacer-camino"></div>
+
+            <div class="column">
+                <a href="https://www.twitch.tv/only_maus/" target="_blank" class="btn c-twitch">
+                    <span class="btn-text">Twitch</span>
+                    <img src="img/cornice.png" class="cornice-img">
+                </a>
+                <a href="https://discord.gg/AwZ3Sa2m8f" target="_blank" class="btn c-discord">
+                    <span class="btn-text">🥩 Discord 🥩<br>!discord</span>
+                    <img src="img/cornice.png" class="cornice-img">
+                </a>
+                <a href="https://t.me/+t2VmbKd9WKwzNzJk" target="_blank" class="btn c-telegram">
+                    <span class="btn-text">🍳 Telegram 🍳<br>!telegram</span>
+                    <img src="img/cornice.png" class="cornice-img">
+                </a>
+            </div>
         </div>
 
         <div class="footer">
