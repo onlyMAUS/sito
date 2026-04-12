@@ -15,7 +15,7 @@
             min-height: 100vh; display: flex; flex-direction: column; align-items: center;
         }
 
-        /* 🥩 TESTATA */
+        /* TESTATA */
         .header-container {
             position: relative; width: 450px; height: 150px;
             margin-top: 20px; display: flex; justify-content: center; align-items: center;
@@ -23,39 +23,52 @@
         }
         .img-testata { width: 85%; z-index: 11; }
 
-        /* 📐 LAYOUT - PULSANTI ESTERNI (SALVA-CAMINO) */
+        /* 📐 LAYOUT IBRIDO 2K / 1080p */
         .main-content {
-            display: grid;
-            grid-template-columns: 1fr 2fr 1fr; 
-            width: 95%; max-width: 1600px;
-            margin-top: 100px; flex-grow: 1;
-            padding: 0 60px; box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            width: 100%;
+            max-width: 1300px; /* Perfetto per non disperdersi sul 2K */
+            margin-top: 5vh; /* Usa unità basate sull'altezza schermo per allinearsi alle lampade */
+            flex-grow: 1;
+            padding: 0 5%;
+            box-sizing: border-box;
         }
 
-        .column { display: flex; flex-direction: column; gap: 30px; }
-        .center-gap { pointer-events: none; }
+        .column { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 25px; 
+            width: 300px; /* Larghezza fissa per mantenere le proporzioni della cornice */
+        }
+
+        /* 🧱 SPAZIO DINAMICO PER IL CAMINO */
+        .center-gap { 
+            flex: 1; /* Si espande per riempire il centro */
+            max-width: 450px; /* Non lascia che i pulsanti si allontanino troppo sul 2K */
+            min-width: 200px; /* Non lascia che si schiaccino sul 1080p */
+        }
 
         /* 🔘 PULSANTI */
         .btn-frame {
             position: relative;
-            width: 100%; max-width: 300px; height: 85px;
+            width: 100%; height: 85px;
             display: flex; justify-content: center; align-items: center;
             text-decoration: none; transition: transform 0.2s;
-            margin: 0 auto;
             overflow: hidden;
         }
-
         .btn-frame:hover { transform: scale(1.05); }
 
-        /* 🎨 GLOW INTERNO (ELLISSE) - NON ESCE DAI BORDI */
+        /* 🎨 GLOW INTERNO */
         .btn-frame::before {
             content: '';
             position: absolute;
             top: 15%; left: 15%; right: 15%; bottom: 15%;
             z-index: 1;
-            clip-path: ellipse(40% 35% at 50% 50%);
-            opacity: 0.7;
-            filter: blur(10px); /* Sfuma i bordi del colore */
+            clip-path: ellipse(42% 38% at 50% 50%);
+            opacity: 0.65;
+            filter: blur(12px);
         }
 
         .bg-amazon::before { background: radial-gradient(circle, #ff9900, transparent); }
@@ -67,7 +80,7 @@
             z-index: 5; color: #fff; font-weight: bold;
             text-transform: uppercase; text-align: center; font-size: 13px;
             text-shadow: 2px 2px 5px rgba(0,0,0,1);
-            padding: 0 20px;
+            padding: 0 10px;
         }
 
         .cornice {
@@ -76,16 +89,19 @@
             z-index: 4; object-fit: fill; pointer-events: none;
         }
 
-        /* 📝 FOOTER */
+        /* FOOTER */
         .footer-disclaimer {
             width: 100%; background: rgba(0, 0, 0, 0.9);
             padding: 25px 10px; text-align: center; font-size: 12px;
-            color: #aaa; margin-top: 50px; border-top: 1px solid #333;
+            color: #aaa; margin-top: 50px;
+            border-top: 1px solid #333;
         }
 
-        @media (max-width: 1100px) {
-            .main-content { grid-template-columns: 1fr; margin-top: 40px; padding: 0 20px; }
-            .column { margin-bottom: 30px; }
+        /* MOBILE FIX */
+        @media (max-width: 1000px) {
+            .main-content { flex-direction: column; align-items: center; margin-top: 40px; }
+            .center-gap { display: none; }
+            .column { width: 100%; max-width: 320px; margin-bottom: 25px; }
         }
     </style>
 </head>
