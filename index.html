@@ -6,70 +6,75 @@
     <title>onlymaus.it</title>
     <style>
         body {
-            /* 🥩 LO SFONDO PRINCIPALE */
+            /* SFONDO */
             background-image: url('img/torno%20subito.png');
             background-size: cover;
             background-position: center;
-            background-attachment: fixed; /* L'immagine resta ferma */
+            background-attachment: fixed;
             background-color: #000;
-            
             margin: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            padding-top: 40px;
-            font-family: Arial, sans-serif;
+            padding-top: 50px;
         }
 
-        /* 🖼️ LA TESTATA INCORNICIATA */
-        .header-container {
+        /* IL CONTENITORE DELLA TESTATA */
+        .header-wrapper {
             position: relative;
-            width: 90%;
-            max-width: 500px;
-            height: 150px;
+            width: 95%;
+            max-width: 500px; /* Larghezza del rettangolo */
+            height: 160px;    /* Altezza del rettangolo */
             display: flex;
             justify-content: center;
             align-items: center;
+            overflow: hidden;
+            border-radius: 8px; /* Arrotondiamo un po' gli angoli */
         }
 
-        /* Il ritaglio dell'insegna M4USS */
-        .insegna-box {
+        /* IL RITAGLIO DELL'INSEGNA (Livello sotto) */
+        .insegna-crop {
             position: absolute;
-            width: 80%;
-            height: 80%;
+            width: 100%;
+            height: 100%;
             overflow: hidden;
             z-index: 1;
         }
 
-        .insegna-box img {
+        .insegna-crop img {
             width: 100%;
             height: auto;
-            transform: scale(2.8); /* Zoom sull'insegna */
-            margin-top: 185px;     /* Sposta l'immagine per centrare la scritta */
+            /* 🥩 REGOLAZIONE DI PRECISIONE 🥩 */
+            /* Aumentiamo lo zoom (3.5) per vedere bene la bistecca */
+            transform: scale(3.5); 
+            /* Spingiamo l'immagine molto più in basso (260px) per centrare l'insegna */
+            margin-top: 260px; 
             display: block;
         }
 
-        /* La cornice sopra il ritaglio */
-        .cornice-img {
+        /* LA CORNICE (Livello sopra) */
+        .cornice-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: 2;
-            object-fit: fill; /* Adatta la cornice al rettangolo */
+            object-fit: fill; /* Adatta la cornice alla forma rettangolare */
             pointer-events: none;
+            /* Aggiungiamo un po' di ombra per far risaltare l'insegna */
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
         }
     </style>
 </head>
 <body>
 
-    <div class="header-container">
-        <div class="insegna-box">
-            <img src="img/offline.png" alt="Insegna M4USS">
+    <div class="header-wrapper">
+        <div class="insegna-crop">
+            <img src="img/offline.png" alt="M4USS">
         </div>
-        <img src="img/cornice.png" alt="Cornice" class="cornice-img">
+        <img src="img/cornice.png" alt="Cornice" class="cornice-overlay">
     </div>
 
 </body>
