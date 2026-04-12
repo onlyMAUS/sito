@@ -6,44 +6,70 @@
     <title>onlymaus.it</title>
     <style>
         body {
-            background-color: #000000;
+            /* 🥩 LO SFONDO PRINCIPALE */
+            background-image: url('img/torno%20subito.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* L'immagine resta ferma */
+            background-color: #000;
+            
             margin: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-top: 30px;
+            min-height: 100vh;
+            padding-top: 40px;
+            font-family: Arial, sans-serif;
         }
 
-        .header-crop {
+        /* 🖼️ LA TESTATA INCORNICIATA */
+        .header-container {
+            position: relative;
             width: 90%;
             max-width: 500px;
-            height: 150px; /* Ridotta ancora un po' per "chiudere" la visuale sul portone */
-            overflow: hidden;
-            position: relative;
-            border: 2px solid #ffffff;
-            border-radius: 4px;
-            background-color: #1a1a1a;
+            height: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        .immagine-insegna {
+        /* Il ritaglio dell'insegna M4USS */
+        .insegna-box {
+            position: absolute;
+            width: 80%;
+            height: 60%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .insegna-box img {
             width: 100%;
             height: auto;
+            transform: scale(2.8); /* Zoom sull'insegna */
+            margin-top: 185px;     /* Sposta l'immagine per centrare la scritta */
             display: block;
-            
-            /* 🛠️ REGOLAZIONE DI PRECISIONE */
-            /* Aumentiamo lo zoom per tagliare i lati e il portone */
-            transform: scale(2.2); 
-            
-            /* Aumentiamo il margine per spingere l'insegna M4USS nel centro.
-               Se vedi ancora il portone, aumenta questo numero (es. 130px). */
-            margin-top: 115px; 
+        }
+
+        /* La cornice sopra il ritaglio */
+        .cornice-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            object-fit: fill; /* Adatta la cornice al rettangolo */
+            pointer-events: none;
         }
     </style>
 </head>
 <body>
 
-    <div class="header-crop">
-        <img src="img/offline.png" alt="M4USS Header" class="immagine-insegna">
+    <div class="header-container">
+        <div class="insegna-box">
+            <img src="img/offline.png" alt="Insegna M4USS">
+        </div>
+        <img src="img/cornice.png" alt="Cornice" class="cornice-img">
     </div>
 
 </body>
