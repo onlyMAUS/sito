@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>onlymaus.it</title>
+    
     <link rel="icon" type="image/png" href="img/Logo100.png">
 
     <style>
@@ -19,29 +20,30 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            padding-top: 20px;
+            padding: 40px 10px;
+            font-family: 'Segoe UI', Arial, sans-serif;
         }
 
-        /* CONTENITORE GENERALE */
-        .frame-container {
+        /* 🖼️ BOX RETTANGOLARI */
+        .frame-box {
             position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 20px;
-            /* Questo serve a non far sbordare le immagini */
-            overflow: hidden; 
+            margin-bottom: 30px;
+            overflow: hidden;
         }
 
-        /* 1. TESTATA (M4USS) */
-        .header-box {
-            width: 400px; /* Larghezza proporzionata */
-            height: 120px;
+        /* 🥩 TESTATA */
+        .header-size {
+            width: 100%;
+            max-width: 480px;
+            height: 140px;
         }
 
         .insegna-crop {
             position: absolute;
-            width: 88%; /* Lascia spazio ai bordi della cornice */
+            width: 90%;
             height: 75%;
             overflow: hidden;
             z-index: 1;
@@ -50,29 +52,37 @@
         .insegna-crop img {
             width: 100%;
             height: auto;
-            /* REGOLAZIONE PERFETTA PER LA BISTECCA */
-            transform: scale(2.4); 
-            margin-top: 145px; 
+            transform: scale(2.6); 
+            margin-top: 155px; 
             display: block;
         }
 
-        /* 2. TWITCH BOX */
-        .twitch-box {
-            width: 600px;  /* Più grande come nello screenshot */
-            height: 350px;
+        /* 💜 PULSANTE TWITCH */
+        .twitch-btn-box {
+            width: 280px;
+            height: 100px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.2s;
         }
 
-        .twitch-embed {
+        .twitch-btn-box:hover {
+            transform: scale(1.05);
+        }
+
+        .btn-text {
             position: absolute;
-            width: 92%;  /* Centrato dentro la cornice */
-            height: 85%;
             z-index: 1;
-            border: none;
-            background: #000;
+            color: #fff;
+            font-size: 22px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px #ff0000; /* Richiama il neon rosso */
         }
 
-        /* LA CORNICE (Sia sopra che sotto) */
-        .cornice-overlay {
+        /* 🖼️ CORNICE NEON */
+        .cornice-neon {
             position: absolute;
             top: 0;
             left: 0;
@@ -82,26 +92,21 @@
             object-fit: fill;
             pointer-events: none;
         }
-
     </style>
 </head>
 <body>
 
-    <div class="frame-container header-box">
+    <div class="frame-box header-size">
         <div class="insegna-crop">
             <img src="img/offline.png" alt="M4USS">
         </div>
-        <img src="img/cornice.png" alt="Cornice" class="cornice-overlay">
+        <img src="img/cornice.png" alt="Cornice" class="cornice-neon">
     </div>
 
-    <div class="frame-container twitch-box">
-        <iframe
-            src="https://player.twitch.tv/?channel=only_maus&parent=onlymaus.github.io&parent=onlymaus.it"
-            class="twitch-embed"
-            allowfullscreen="true">
-        </iframe>
-        <img src="img/cornice.png" alt="Cornice" class="cornice-overlay">
-    </div>
+    <a href="https://www.twitch.tv/only_maus" target="_blank" class="frame-box twitch-btn-box">
+        <span class="btn-text">Entra in Live</span>
+        <img src="img/cornice.png" alt="Cornice" class="cornice-neon">
+    </a>
 
 </body>
 </html>
