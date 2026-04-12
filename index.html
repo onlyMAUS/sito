@@ -6,18 +6,18 @@
     <title>onlymaus.it</title>
     <link rel="icon" type="image/png" href="img/Logo100.png">
     <style>
-        /* 🛑 ZERO SCROLLBAR */
+        /* 🛑 BLOCCO TOTALE BARRE */
         html, body {
             margin: 0; padding: 0;
-            width: 100%; height: 100vh;
-            overflow: hidden;
+            width: 100vw; height: 100vh;
+            overflow: hidden; 
             background-color: #000;
             font-family: 'Segoe UI', Arial, sans-serif;
         }
 
-        /* 📸 SFONDO FISSO CENTRATO */
-        .scena {
-            position: absolute;
+        /* 📸 SFONDO CENTRATO */
+        .bg-scena {
+            position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background-image: url('img/torno%20subito.png');
             background-size: cover;
@@ -25,61 +25,73 @@
             z-index: 1;
         }
 
-        /* 🏗️ AREA PULSANTI (Ancorata al centro della foto) */
-        .overlay {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -45%); /* Spostato per stare sotto le luci */
-            width: 100%; max-width: 1400px;
-            height: 80vh;
+        /* 🏗️ CONTENITORE GENERALE */
+        .main-wrapper {
+            position: relative;
             z-index: 10;
+            width: 100%; height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* 🥩 FIX TESTATA: NON SI MUOVE E NON SI SFORMA */
+        .header-box {
+            position: relative;
+            width: 450px; height: 160px;
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .header-logo {
+            width: 80%; /* Rimane dentro la cornice */
+            z-index: 12;
+            object-fit: contain;
+        }
+
+        /* 📐 POSIZIONAMENTO PULSANTI (Coordinate dirette) */
+        .area-pulsanti {
+            position: absolute;
+            top: 55%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%; max-width: 1200px;
+            height: 450px;
             pointer-events: none;
         }
 
-        /* 🥩 TESTATA */
-        .header-box {
+        .btn {
             position: absolute;
-            top: 0; left: 50%;
-            transform: translateX(-50%);
-            width: 400px;
-            pointer-events: auto;
-        }
-
-        /* 🔘 STILE PULSANTI */
-        .btn-frame {
-            position: absolute;
-            width: 260px; height: 75px;
+            width: 270px; height: 80px;
             display: flex; justify-content: center; align-items: center;
             text-decoration: none; transition: transform 0.2s;
             pointer-events: auto;
         }
-        .btn-frame:hover { transform: scale(1.05); }
+        .btn:hover { transform: scale(1.05); }
 
-        /* 📍 COORDINATE CHIRURGICHE (Sotto le luci) */
+        /* 📍 POSIZIONI SOTTO LE LUCI (FRECCE ROSSE) */
         /* Sinistra */
-        .pos-amazon    { top: 30%; left: 8%; }
-        .pos-setup     { top: 48%; left: 8%; }
-        .pos-donazione { top: 66%; left: 8%; } /* Nuovo pulsante verde */
+        .p-amazon { top: 0%; left: 5%; }
+        .p-setup  { top: 30%; left: 5%; }
+        .p-donazione { top: 60%; left: 5%; } /* Quello verde */
 
         /* Destra */
-        .pos-twitch    { top: 30%; right: 8%; }
-        .pos-discord   { top: 48%; right: 8%; }
-        .pos-telegram  { top: 66%; right: 8%; }
+        .p-twitch  { top: 0%; right: 5%; }
+        .p-discord { top: 30%; right: 5%; }
+        .p-telegram { top: 60%; right: 5%; }
 
-        /* 🎨 GLOW E COLORI */
-        .btn-frame::before {
-            content: '';
-            position: absolute;
-            top: 25%; left: 20%; right: 20%; bottom: 25%;
-            z-index: 1;
-            background: radial-gradient(circle, var(--c), transparent 70%);
-            opacity: 0.7; filter: blur(15px);
+        /* 🎨 EFFETTI E CORNICI */
+        .btn::before {
+            content: ''; position: absolute;
+            top: 20%; left: 15%; right: 15%; bottom: 20%;
+            z-index: 1; opacity: 0.7; filter: blur(15px);
+            background: radial-gradient(circle, var(--glow), transparent 70%);
         }
-        .bg-amazon   { --c: #ff9900; }
-        .bg-twitch   { --c: #9146ff; }
-        .bg-discord  { --c: #5865f2; }
-        .bg-telegram { --c: #0088cc; }
-        .bg-verde    { --c: #2ecc71; } /* Verde 100 Euro */
+        .c-amazon { --glow: #ff9900; }
+        .c-twitch { --glow: #9146ff; }
+        .c-discord { --glow: #5865f2; }
+        .c-telegram { --glow: #0088cc; }
+        .c-verde { --glow: #2ecc71; } /* Colore 100 Euro */
 
         .btn-text {
             z-index: 5; color: #fff; font-weight: bold;
@@ -87,7 +99,7 @@
             text-shadow: 2px 2px 4px #000;
         }
 
-        .cornice {
+        .cornice-img {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             z-index: 4; object-fit: fill; pointer-events: none;
         }
@@ -95,64 +107,62 @@
         /* 📝 FOOTER */
         .footer {
             position: absolute; bottom: 0; width: 100%;
-            background: rgba(0, 0, 0, 0.85); padding: 12px 0;
-            text-align: center; font-size: 11px; color: #bbb;
-            z-index: 20; border-top: 1px solid #333;
+            background: rgba(0, 0, 0, 0.9); padding: 15px 0;
+            text-align: center; font-size: 11px; color: #aaa;
+            border-top: 1px solid #333;
         }
 
-        /* MOBILE FIX */
+        /* MOBILE */
         @media (max-width: 900px) {
             html, body { overflow-y: auto; }
-            .overlay { position: relative; top: 0; left: 0; transform: none; height: auto; display: flex; flex-direction: column; align-items: center; padding-top: 150px; }
-            .btn-frame { position: relative; top: auto; left: auto; right: auto; margin-bottom: 20px; }
+            .area-pulsanti { position: relative; top: 0; left: 0; transform: none; display: flex; flex-direction: column; align-items: center; height: auto; margin-top: 40px; }
+            .btn { position: relative; top: auto; left: auto; right: auto; margin-bottom: 20px; }
             .footer { position: relative; }
         }
     </style>
 </head>
 <body>
 
-    <div class="scena"></div>
+    <div class="bg-scena"></div>
 
-    <div class="overlay">
+    <div class="main-wrapper">
         <div class="header-box">
-            <img src="img/testata.png" style="width:100%;">
-            <img src="img/cornice.png" class="cornice">
+            <img src="img/testata.png" class="header-logo">
+            <img src="img/cornice.png" class="cornice-img">
         </div>
 
-        <a href="https://www.amazon.it/index.html?tag=onlymaus-21" target="_blank" class="btn-frame pos-amazon bg-amazon">
-            <span class="btn-text">!amazon</span>
-            <img src="img/cornice.png" class="cornice">
-        </a>
+        <div class="area-pulsanti">
+            <a href="https://www.amazon.it/index.html?tag=onlymaus-21" target="_blank" class="btn p-amazon c-amazon">
+                <span class="btn-text">!amazon</span>
+                <img src="img/cornice.png" class="cornice-img">
+            </a>
+            <a href="https://www.amazon.it/hz/wishlist/ls/1UN05MW61D27C?tag=onlymaus-21" target="_blank" class="btn p-setup c-amazon">
+                <span class="btn-text">!setup</span>
+                <img src="img/cornice.png" class="cornice-img">
+            </a>
+            <a href="https://streamelements.com/only_maus/tip" target="_blank" class="btn p-donazione c-verde">
+                <span class="btn-text">💰 !donazione 💰</span>
+                <img src="img/cornice.png" class="cornice-img">
+            </a>
 
-        <a href="https://www.amazon.it/hz/wishlist/ls/1UN05MW61D27C?tag=onlymaus-21" target="_blank" class="btn-frame pos-setup bg-amazon">
-            <span class="btn-text">!setup</span>
-            <img src="img/cornice.png" class="cornice">
-        </a>
+            <a href="https://www.twitch.tv/only_maus/" target="_blank" class="btn p-twitch c-twitch">
+                <span class="btn-text">Twitch</span>
+                <img src="img/cornice.png" class="cornice-img">
+            </a>
+            <a href="https://discord.gg/AwZ3Sa2m8f" target="_blank" class="btn p-discord c-discord">
+                <span class="btn-text">🥩 Discord 🥩<br>!discord</span>
+                <img src="img/cornice.png" class="cornice-img">
+            </a>
+            <a href="https://t.me/+t2VmbKd9WKwzNzJk" target="_blank" class="btn p-telegram c-telegram">
+                <span class="btn-text">🍳 Telegram 🍳<br>!telegram</span>
+                <img src="img/cornice.png" class="cornice-img">
+            </a>
+        </div>
 
-        <a href="https://streamelements.com/only_maus/tip" target="_blank" class="btn-frame pos-donazione bg-verde">
-            <span class="btn-text">💰 !donazione 💰</span>
-            <img src="img/cornice.png" class="cornice">
-        </a>
-
-        <a href="https://www.twitch.tv/only_maus/" target="_blank" class="btn-frame pos-twitch bg-twitch">
-            <span class="btn-text">Twitch</span>
-            <img src="img/cornice.png" class="cornice">
-        </a>
-
-        <a href="https://discord.gg/AwZ3Sa2m8f" target="_blank" class="btn-frame pos-discord bg-discord">
-            <span class="btn-text">🥩 Discord 🥩<br>!discord</span>
-            <img src="img/cornice.png" class="cornice">
-        </a>
-
-        <a href="https://t.me/+t2VmbKd9WKwzNzJk" target="_blank" class="btn-frame pos-telegram bg-telegram">
-            <span class="btn-text">🍳 Telegram 🍳<br>!telegram</span>
-            <img src="img/cornice.png" class="cornice">
-        </a>
-    </div>
-
-    <div class="footer">
-        In qualità di Affiliato Amazon, ricevo un guadagno dagli acquisti idonei. <br>
-        Il dominio <strong>mausstore.it</strong> è di proprietà esclusiva di Maurizio Patete.
+        <div class="footer">
+            In qualità di Affiliato Amazon, ricevo un guadagno dagli acquisti idonei. <br>
+            Il dominio <strong>mausstore.it</strong> è di proprietà esclusiva di Maurizio Patete.
+        </div>
     </div>
 
 </body>
