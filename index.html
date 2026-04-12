@@ -6,66 +6,67 @@
     <title>onlymaus.it - Braceria</title>
     <link rel="icon" type="image/png" href="img/Logo100.png">
     <style>
-        /* 🛑 BLOCHIAMO LE BARRE DI SCORRIMENTO */
+        /* 🛑 RESET E ELIMINAZIONE BARRE */
         html, body {
             margin: 0; padding: 0;
-            width: 100%; height: 100vh;
-            overflow: hidden; /* Elimina scrollbar alto/basso e destra/sinistra */
+            width: 100vw; height: 100vh;
+            overflow: hidden; /* Elimina scrollbar ovunque */
             background-color: #000;
-            display: flex; flex-direction: column; align-items: center;
+            font-family: 'Segoe UI', Arial, sans-serif;
         }
 
-        /* 📸 LO SFONDO CHE FA DA SCENOGRAFIA (SENZA BARRE) */
+        /* 📸 LO SFONDO CHE FA DA SCENOGRAFIA */
         .scenografia {
             position: absolute;
             width: 100%; height: 100vh;
             background-image: url('img/torno%20subito.png');
-            background-size: cover; /* Si adatta perfettamente senza sgranare */
-            background-position: center; /* Centrato per 2K e 1080p */
+            background-size: cover;
+            background-position: center;
             background-repeat: no-repeat;
             z-index: 1;
         }
 
-        /* 🥩 TESTATA SEMPRE AL CENTRO TRA LE LUCI */
+        /* 🥩 TESTATA CENTRATA IN ALTO */
         .header-container {
             position: relative;
-            width: 90%; max-width: 450px; height: 15vh; /* Altezza basata sullo schermo */
+            width: 90%; max-width: 450px; height: 15vh; /* Altezza proporzionale */
             margin-top: 2vh; /* Centrata tra i coni di luce */
             display: flex; justify-content: center; align-items: center;
             z-index: 10;
         }
         .img-testata { width: 85%; z-index: 11; object-fit: contain; }
 
-        /* 🧱 AREA DI ANCORAGGIO: IL CUORE DEL FIX */
+        /* 📐 AREA ANCORAGGIO: CUORE DEL FIX CHIRURGICO */
         .area-ancoraggio {
             position: absolute;
-            top: 50%; left: 50%; /* Centrata esattamente sopra il camino */
-            transform: translate(-50%, -35%); /* Allineata sopra il fuoco */
+            top: 50%; left: 50%; /* Punto di partenza centrale */
+            /* 🛠️ SPOSTAMENTO SOTTO LE LUCI (Offset Prospettico) */
+            transform: translate(-50%, -28vh); /* -28vh allinea l'area sotto le applique */
             width: 100%; max-width: 1300px; /* Limite per monitor 2K */
-            height: 350px;
+            height: 400px; /* Altezza fissa dell'area di gioco */
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr; /* Tre colonne per salvare il centro */
+            grid-template-columns: 1fr 1fr 1fr; /* Tre colonne per salvare il camino */
             gap: 20px;
             pointer-events: none; /* Non blocca i click */
             z-index: 5;
         }
 
         .column { display: flex; flex-direction: column; gap: 20px; pointer-events: auto; }
-        .col-sinistra { align-items: flex-start; padding-left: 20px; }
-        .col-destra { align-items: flex-end; padding-right: 20px; }
+        .col-sinistra { align-items: flex-start; padding-left: 30px; }
+        .col-destra { align-items: flex-end; padding-right: 30px; }
         .col-vuota { pointer-events: none; } /* Spazio per il camino */
 
         /* 🔘 PULSANTI INCORNICIATI E COLORATI */
         .btn-frame {
             position: relative;
-            width: 280px; height: 75px;
+            width: 280px; height: 80px;
             display: flex; justify-content: center; align-items: center;
             text-decoration: none; transition: transform 0.2s;
             overflow: hidden; border-radius: 12px;
         }
         .btn-frame:hover { transform: scale(1.03); }
 
-        /* 🎨 EFFETTO GLOW INTEGRATO */
+        /* 🎨 GLOW INTERNO */
         .btn-frame::before {
             content: '';
             position: absolute;
@@ -87,7 +88,7 @@
 
         .cornice { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 4; object-fit: fill; pointer-events: none; }
 
-        /* 📝 FOOTER FISSO (SENZA BARRE) */
+        /* 📝 FOOTER FISSO IN BASSO */
         .footer-disclaimer {
             position: absolute; bottom: 0; width: 100%;
             background: rgba(0, 0, 0, 0.9); padding: 15px 0;
