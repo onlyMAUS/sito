@@ -3,72 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>onlymaus.it</title>
+    <title>onlymaus.it - Braceria</title>
     <link rel="icon" type="image/png" href="img/Logo100.png">
     <style>
-        body {
+        /* 🛑 BLOCHIAMO LE BARRE DI SCORRIMENTO */
+        html, body {
             margin: 0; padding: 0;
-            background-image: url('img/torno%20subito.png');
-            background-size: cover; background-position: center;
-            background-attachment: fixed; background-color: #000;
-            font-family: 'Segoe UI', Arial, sans-serif; color: white;
-            min-height: 100vh; display: flex; flex-direction: column; align-items: center;
+            width: 100%; height: 100vh;
+            overflow: hidden; /* Elimina scrollbar alto/basso e destra/sinistra */
+            background-color: #000;
+            display: flex; flex-direction: column; align-items: center;
         }
 
-        /* TESTATA */
+        /* 📸 LO SFONDO CHE FA DA SCENOGRAFIA (SENZA BARRE) */
+        .scenografia {
+            position: absolute;
+            width: 100%; height: 100vh;
+            background-image: url('img/torno%20subito.png');
+            background-size: cover; /* Si adatta perfettamente senza sgranare */
+            background-position: center; /* Centrato per 2K e 1080p */
+            background-repeat: no-repeat;
+            z-index: 1;
+        }
+
+        /* 🥩 TESTATA SEMPRE AL CENTRO TRA LE LUCI */
         .header-container {
-            position: relative; width: 450px; height: 150px;
-            margin-top: 20px; display: flex; justify-content: center; align-items: center;
+            position: relative;
+            width: 90%; max-width: 450px; height: 15vh; /* Altezza basata sullo schermo */
+            margin-top: 2vh; /* Centrata tra i coni di luce */
+            display: flex; justify-content: center; align-items: center;
             z-index: 10;
         }
-        .img-testata { width: 85%; z-index: 11; }
+        .img-testata { width: 85%; z-index: 11; object-fit: contain; }
 
-        /* 📐 LAYOUT IBRIDO 2K / 1080p */
-        .main-content {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            width: 100%;
-            max-width: 1300px; /* Perfetto per non disperdersi sul 2K */
-            margin-top: 5vh; /* Usa unità basate sull'altezza schermo per allinearsi alle lampade */
-            flex-grow: 1;
-            padding: 0 5%;
-            box-sizing: border-box;
+        /* 🧱 AREA DI ANCORAGGIO: IL CUORE DEL FIX */
+        .area-ancoraggio {
+            position: absolute;
+            top: 50%; left: 50%; /* Centrata esattamente sopra il camino */
+            transform: translate(-50%, -35%); /* Allineata sopra il fuoco */
+            width: 100%; max-width: 1300px; /* Limite per monitor 2K */
+            height: 350px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr; /* Tre colonne per salvare il centro */
+            gap: 20px;
+            pointer-events: none; /* Non blocca i click */
+            z-index: 5;
         }
 
-        .column { 
-            display: flex; 
-            flex-direction: column; 
-            gap: 25px; 
-            width: 300px; /* Larghezza fissa per mantenere le proporzioni della cornice */
-        }
+        .column { display: flex; flex-direction: column; gap: 20px; pointer-events: auto; }
+        .col-sinistra { align-items: flex-start; padding-left: 20px; }
+        .col-destra { align-items: flex-end; padding-right: 20px; }
+        .col-vuota { pointer-events: none; } /* Spazio per il camino */
 
-        /* 🧱 SPAZIO DINAMICO PER IL CAMINO */
-        .center-gap { 
-            flex: 1; /* Si espande per riempire il centro */
-            max-width: 450px; /* Non lascia che i pulsanti si allontanino troppo sul 2K */
-            min-width: 200px; /* Non lascia che si schiaccino sul 1080p */
-        }
-
-        /* 🔘 PULSANTI */
+        /* 🔘 PULSANTI INCORNICIATI E COLORATI */
         .btn-frame {
             position: relative;
-            width: 100%; height: 85px;
+            width: 280px; height: 75px;
             display: flex; justify-content: center; align-items: center;
             text-decoration: none; transition: transform 0.2s;
-            overflow: hidden;
+            overflow: hidden; border-radius: 12px;
         }
-        .btn-frame:hover { transform: scale(1.05); }
+        .btn-frame:hover { transform: scale(1.03); }
 
-        /* 🎨 GLOW INTERNO */
+        /* 🎨 EFFETTO GLOW INTEGRATO */
         .btn-frame::before {
             content: '';
             position: absolute;
-            top: 15%; left: 15%; right: 15%; bottom: 15%;
-            z-index: 1;
-            clip-path: ellipse(42% 38% at 50% 50%);
-            opacity: 0.65;
-            filter: blur(12px);
+            top: 20%; left: 20%; right: 20%; bottom: 20%;
+            z-index: 1; clip-path: ellipse(45% 40% at 50% 50%);
+            opacity: 0.6; filter: blur(15px);
         }
 
         .bg-amazon::before { background: radial-gradient(circle, #ff9900, transparent); }
@@ -79,41 +82,40 @@
         .btn-text {
             z-index: 5; color: #fff; font-weight: bold;
             text-transform: uppercase; text-align: center; font-size: 13px;
-            text-shadow: 2px 2px 5px rgba(0,0,0,1);
-            padding: 0 10px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,1); padding: 0 10px;
         }
 
-        .cornice {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 4; object-fit: fill; pointer-events: none;
-        }
+        .cornice { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 4; object-fit: fill; pointer-events: none; }
 
-        /* FOOTER */
+        /* 📝 FOOTER FISSO (SENZA BARRE) */
         .footer-disclaimer {
-            width: 100%; background: rgba(0, 0, 0, 0.9);
-            padding: 25px 10px; text-align: center; font-size: 12px;
-            color: #aaa; margin-top: 50px;
-            border-top: 1px solid #333;
+            position: absolute; bottom: 0; width: 100%;
+            background: rgba(0, 0, 0, 0.9); padding: 15px 0;
+            text-align: center; font-size: 11px; color: #aaa;
+            z-index: 20; border-top: 1px solid #222;
         }
 
-        /* MOBILE FIX */
+        /* 📱 MOBILE FIX (SOTTO I 1000px) */
         @media (max-width: 1000px) {
-            .main-content { flex-direction: column; align-items: center; margin-top: 40px; }
-            .center-gap { display: none; }
-            .column { width: 100%; max-width: 320px; margin-bottom: 25px; }
+            .scenografia { background-attachment: scroll; overflow-y: auto; }
+            html, body { overflow: auto; }
+            .area-ancoraggio { position: relative; top: auto; left: auto; transform: none; display: flex; flex-direction: column; align-items: center; margin-top: 50px; }
+            .btn-frame { position: relative; top: auto; left: auto; right: auto; margin-bottom: 20px; }
+            .col-vuota { display: none; }
+            .footer-disclaimer { position: relative; margin-top: 40px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="header-container">
-        <img src="img/testata.png" class="img-testata" alt="M4USS">
+    <div class="scenografia"></div> <div class="header-container">
+        <img src="img/testata.png" class="img-testata" alt="M4USS Braceria">
         <img src="img/cornice.png" class="cornice">
     </div>
 
-    <div class="main-content">
-        <div class="column">
+    <div class="area-ancoraggio">
+        
+        <div class="column col-sinistra">
             <a href="https://www.amazon.it/index.html?tag=onlymaus-21" target="_blank" class="btn-frame bg-amazon">
                 <span class="btn-text">!amazon</span>
                 <img src="img/cornice.png" class="cornice">
@@ -124,9 +126,9 @@
             </a>
         </div>
 
-        <div class="center-gap"></div>
+        <div class="col-vuota"></div>
 
-        <div class="column">
+        <div class="column col-destra">
             <a href="https://www.twitch.tv/only_maus/" target="_blank" class="btn-frame bg-twitch">
                 <span class="btn-text">Twitch</span>
                 <img src="img/cornice.png" class="cornice">
