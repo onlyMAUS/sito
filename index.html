@@ -50,25 +50,34 @@
             object-fit: contain;
         }
 
-        /* 📐 AREA PULSANTI (Allargata per saltare il camino) */
-        .area-pulsanti {
-            position: absolute;
-            top: 55%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 1000px; /* <--- LARGHEZZA AUMENTATA PER STARE AI LATI DEL CAMINO */
-            height: 350px;
-            display: flex;
-            justify-content: space-between; /* Spinge le colonne ai bordi del contenitore */
-            pointer-events: none;
-        }
+        /* 📐 AREA PULSANTI (Spinta ai lati del camino) */
+.area-pulsanti {
+    position: absolute;
+    top: 50%; /* Centratura verticale rispetto allo schermo */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1100px; /* <--- Aumentando questa larghezza, le colonne si spostano nei tuoi rettangoli */
+    height: 400px;
+    display: flex;
+    justify-content: space-between; /* Spinge la colonna SX a sinistra e la DX a destra */
+    pointer-events: none;
+}
 
-        /* 🧱 COLONNE PULSANTI */
-        .colonna-pulsanti {
-            display: flex;
-            flex-direction: column;
-            gap: 20px; /* Spazio verticale tra i tasti */
-            pointer-events: auto;
-        }
+/* 🧱 COLONNE PULSANTI */
+.colonna-pulsanti {
+    display: flex;
+    flex-direction: column;
+    gap: 25px; /* Spazio tra i tasti */
+    pointer-events: auto;
+    width: 210px; /* Larghezza della cornice slim */
+}
+
+/* 🥩 TESTATA (Spostata più in alto) */
+.header-box {
+    position: absolute;
+    top: 30px; /* <--- Alzata per non soffocare il camino */
+    width: 380px;
+}
 
         /* 🔘 PULSANTI RIMPICCIOLITI (Cornice Slim) */
         .btn {
