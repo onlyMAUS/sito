@@ -7,124 +7,36 @@
     <style>
         body {
             background-color: #000000;
-            color: #ffffff;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            min-height: 100vh;
             margin: 0;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        /* 🥩 IL MOTORE DELLA CORNICE (HEADER) */
-        .header-frame-container {
-            width: 320px; /* Dimensione totale della cornice */
-            height: 320px;
-            margin-top: 30px; /* Distanza dall'alto */
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden; /* Taglia l'immagine dell'insegna fuori dal cerchio */
-            border-radius: 50%; /* Rende il contenitore circolare */
-            border: 2px solid transparent; /* Necessario per il ritaglio perfetto */
-        }
-
-        /* L'immagine della cornice (Sopra tutto) */
-        .frame-img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            z-index: 10; /* Sopra l'immagine dell'insegna */
-            pointer-events: none; /* Rende la cornice 'cliccabile' per errore */
-        }
-
-        /* L'immagine dell'insegna M4USS (Sotto la cornice) */
-        .header-bg-img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Riempie il cerchio */
-            object-position: center 35%; /* Regola questo valore per inquadrare l'insegna */
-            z-index: 5; /* Sotto la cornice */
-            transform: scale(1.1); /* Leggera zoomata per coprire i bordi interni */
-        }
-
-        .main-content {
+            padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 40px 0;
+        }
+
+        /* La "finestra" che ritaglia l'immagine */
+        .header-ritagliato {
             width: 100%;
-            flex-grow: 1;
+            height: 200px; /* Altezza del taglio per escludere il portone */
+            overflow: hidden;
+            position: relative;
+            border-bottom: 2px solid #1a1a1a; /* Linea sottile di stacco */
         }
 
-        .profile-container {
-            width: 250px;
-            height: 250px;
-            margin-bottom: 40px;
-            /* Se vuoi usare un'altra immagine centrale, metti il codice qui */
-        }
-
-        .amazon-btn {
-            display: inline-block;
-            padding: 18px 35px;
-            background-color: #000000;
-            color: #ffffff;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 0.95rem;
-            border: 2px solid #ffffff;
-            border-radius: 50px;
-            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-align: center;
-        }
-
-        .amazon-btn:hover {
-            background-color: #ffffff;
-            color: #000000;
-            transform: scale(1.05);
-            box-shadow: 0 6px 25px rgba(255, 255, 255, 0.3);
-        }
-
-        footer {
-            padding: 20px;
+        .header-ritagliato img {
             width: 100%;
-            text-align: center;
-            font-size: 0.75rem;
-            color: #666666;
-            letter-spacing: 0.5px;
+            height: 100%;
+            /* 'cover' riempie lo spazio, 'top' tiene l'insegna ed esclude il basso */
+            object-fit: cover;
+            object-position: top; 
         }
     </style>
 </head>
 <body>
 
-    <div class="header-frame-container">
-        <img src="https://mausstore.it/img/cornice.png" alt="Frame" class="frame-img">
-        <img src="https://mausstore.it/img/header.png" alt="M4USS" class="header-bg-img">
-    </div>
-
-    <div class="main-content">
-        <a href="https://www.amazon.it/?tag=onlymaus-21" target="_blank" class="amazon-btn">
-            ⭐ <span style="margin: 0 5px;">Aggiungi ai preferiti</span> 🔖
-        </a>
-    </div>
-
-    <footer>
-        In qualità di Affiliato Amazon, ricevo un guadagno dagli acquisti idonei.
-    </footer>
+    <header class="header-ritagliato">
+        <img src="https://mausstore.it/img/header.png" alt="M4USS Header">
+    </header>
 
 </body>
 </html>
