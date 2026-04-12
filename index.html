@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>onlymaus.it - Braceria Slim</title>
+    <title>onlymaus.it - Braceria</title>
     <link rel="icon" type="image/png" href="img/Logo100.png">
     <style>
         /* 🛑 ZERO SCROLLBAR E RESET */
@@ -25,7 +25,7 @@
             z-index: 1;
         }
 
-        /* 🏗️ CONTENITORE PRINCIPALE */
+        /* 🏗️ CONTENITORE MASTER */
         .main-wrapper {
             position: relative;
             z-index: 10;
@@ -35,60 +35,47 @@
             align-items: center;
         }
 
-        /* 🥩 TESTATA */
+        /* 🥩 TESTATA (Alzata per liberare il camino) */
         .header-box {
             position: relative;
             width: 380px; height: 140px;
-            margin-top: 30px;
+            margin-top: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
         }
-        .header-logo {
-            width: 82%; 
-            z-index: 12;
-            object-fit: contain;
+        .header-logo { width: 80%; z-index: 12; object-fit: contain; }
+
+        /* 📐 AREA PULSANTI (Allargata a 1200px per stare ai lati) */
+        .area-pulsanti {
+            position: absolute;
+            top: 52%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 1200px; /* <--- Questo "salta" il camino centrale */
+            height: 380px;
+            display: flex;
+            justify-content: space-between; /* Spinge le colonne nei rettangoli colorati */
+            pointer-events: none;
         }
 
-        /* 📐 AREA PULSANTI (Spinta ai lati del camino) */
-.area-pulsanti {
-    position: absolute;
-    top: 50%; /* Centratura verticale rispetto allo schermo */
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 1100px; /* <--- Aumentando questa larghezza, le colonne si spostano nei tuoi rettangoli */
-    height: 400px;
-    display: flex;
-    justify-content: space-between; /* Spinge la colonna SX a sinistra e la DX a destra */
-    pointer-events: none;
-}
+        /* 🧱 COLONNE */
+        .colonna {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            pointer-events: auto;
+        }
 
-/* 🧱 COLONNE PULSANTI */
-.colonna-pulsanti {
-    display: flex;
-    flex-direction: column;
-    gap: 25px; /* Spazio tra i tasti */
-    pointer-events: auto;
-    width: 210px; /* Larghezza della cornice slim */
-}
-
-/* 🥩 TESTATA (Spostata più in alto) */
-.header-box {
-    position: absolute;
-    top: 30px; /* <--- Alzata per non soffocare il camino */
-    width: 380px;
-}
-
-        /* 🔘 PULSANTI RIMPICCIOLITI (Cornice Slim) */
+        /* 🔘 PULSANTI SLIM (210px) */
         .btn {
             position: relative;
-            width: 200px; height: 65px; 
+            width: 210px; height: 68px; 
             display: flex; justify-content: center; align-items: center;
             text-decoration: none; transition: transform 0.2s;
         }
         .btn:hover { transform: scale(1.05); }
 
-        /* 🎨 EFFETTI GLOW */
+        /* 🎨 GLOW E COLORI */
         .btn::before {
             content: ''; position: absolute;
             top: 25%; left: 20%; right: 20%; bottom: 25%;
@@ -105,7 +92,6 @@
             z-index: 5; color: #fff; font-weight: bold;
             text-transform: uppercase; text-align: center; font-size: 10px;
             text-shadow: 2px 2px 4px #000;
-            line-height: 1.2;
         }
 
         .cornice-img {
@@ -122,10 +108,9 @@
         }
 
         /* MOBILE FIX */
-        @media (max-width: 1050px) {
+        @media (max-width: 1250px) {
             html, body { overflow-y: auto; }
             .area-pulsanti { position: relative; top: 0; left: 0; transform: none; flex-direction: column; align-items: center; width: 100%; height: auto; margin-top: 20px; gap: 20px; }
-            .colonna-pulsanti { gap: 15px; }
             .footer { position: relative; }
         }
     </style>
@@ -141,7 +126,7 @@
         </div>
 
         <div class="area-pulsanti">
-            <div class="colonna-pulsanti">
+            <div class="colonna">
                 <a href="https://www.amazon.it/index.html?tag=onlymaus-21" target="_blank" class="btn c-amazon">
                     <span class="btn-text">!amazon</span>
                     <img src="img/cornice.png" class="cornice-img">
@@ -156,7 +141,7 @@
                 </a>
             </div>
 
-            <div class="colonna-pulsanti">
+            <div class="colonna">
                 <a href="https://www.twitch.tv/only_maus/" target="_blank" class="btn c-twitch">
                     <span class="btn-text">Twitch</span>
                     <img src="img/cornice.png" class="cornice-img">
