@@ -3,59 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MAUS</title>
-    
-    <link rel="icon" type="image/webp" sizes="32x32" href="https://cdn.streamelements.com/uploads/01knywve67k69r5908v9z7aak4.webp">
-    <link rel="apple-touch-icon" href="https://cdn.streamelements.com/uploads/01knywve67k69r5908v9z7aak4.webp">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>onlymaus.it</title>
     <style>
-        :root { --bg-color: #0f0f12; --text-color: #ffffff; --accent-color: #9146ff; --amazon-color: #ff9900; --telegram-color: #0088cc; }
-        body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; display: flex; flex-direction: column; align-items: center; padding: 20px; }
-        .container { max-width: 800px; width: 100%; text-align: center; }
-        .twitch-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; margin-bottom: 30px; background: #000; }
-        .twitch-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-        .links-list { display: flex; flex-direction: column; gap: 15px; }
-        .btn { display: flex; align-items: center; justify-content: center; padding: 15px; border-radius: 8px; text-decoration: none; color: white; font-weight: bold; transition: 0.2s; }
-        .btn:hover { transform: translateY(-3px); filter: brightness(1.1); }
-        .btn-amazon { background-color: var(--amazon-color); color: #111; }
-        .btn-amazon-home { background-color: #232f3e; color: white; font-size: 0.95rem; }
-        .btn-twitch { background-color: var(--accent-color); }
-        .btn-telegram { background-color: var(--telegram-color); }
-        .btn-discord { background-color: #5865F2; }
-        .disclaimer { margin-top: 50px; padding: 20px; font-size: 0.85rem; color: #888; border-top: 1px solid #333; }
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .profile-container {
+            width: 280px;
+            height: 280px;
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .profile-pic {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .amazon-btn {
+            display: inline-block;
+            padding: 18px 35px;
+            background-color: #000000;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.95rem;
+            border: 2px solid #ffffff;
+            border-radius: 50px;
+            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+
+        .amazon-btn:hover {
+            background-color: #ffffff;
+            color: #000000;
+            transform: scale(1.05);
+            box-shadow: 0 6px 25px rgba(255, 255, 255, 0.3);
+        }
+
+        footer {
+            position: absolute;
+            bottom: 20px;
+            width: 90%;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #666666; /* Grigio scuro per non distrarre */
+            letter-spacing: 0.5px;
+        }
     </style>
 </head>
 <body>
-<div class="container">
-    <img src="https://cdn.streamelements.com/uploads/01knywve67k69r5908v9z7aak4.webp" alt="Logo" style="width: 80px; height: 80px; border-radius: 50%; margin-bottom: 10px;"> <h1>MAUS</h1>
-    <div class="twitch-wrapper">
-        <div id="twitch-embed"></div>
+
+    <div class="profile-container">
+        <img src="https://mausstore.it/img/cornice-web.png" alt="Logo" class="profile-pic">
     </div>
-    <div class="links-list">
-        <a href="https://www.amazon.it/hz/wishlist/ls/1UN05MW61D27C?tag=onlymaus-21" target="_blank" class="btn btn-amazon">
-            <i class="fab fa-amazon"></i> !setup
-        </a>
-        <a href="https://www.amazon.it/?tag=onlymaus-21" target="_blank" class="btn btn-amazon-home">
-            <i class="fas fa-shopping-cart"></i> !amazon ---> ⭐ **Supporta la Braceria** 🔖
-        </a>
-        <a href="https://twitch.tv/only_maus" target="_blank" class="btn btn-twitch"><i class="fab fa-twitch"></i> TWITCH LIVE</a>
-        <a href="https://t.me/+t2VmbKd9WKwzNzJk" target="_blank" class="btn btn-telegram"><i class="fab fa-telegram-plane"></i> TELEGRAM</a>
-        <a href="https://discord.gg/AwZ3Sa2m8f" target="_blank" class="btn btn-discord"><i class="fab fa-discord"></i> DISCORD</a>
-    </div>
-    <div class="disclaimer">
-        <p>In qualità di Affiliato Amazon, ricevo un guadagno per ciascun acquisto idoneo.</p>
-        <p>&copy; 2026 MAUS | Creato da only_maus</p>
-    </div>
-</div>
-<script src="https://player.twitch.tv/js/embed/v1.js"></script>
-<script>
-    new Twitch.Player("twitch-embed", {
-        channel: "only_maus",
-        width: "100%",
-        height: "100%",
-        parent: ["mausstore.it", "www.mausstore.it"]
-    });
-</script>
+
+    <a href="https://www.amazon.it/?tag=onlymaus-21" target="_blank" class="amazon-btn">
+        ⭐ <span style="margin: 0 5px;">Aggiungi ai preferiti</span> 🔖
+    </a>
+
+    <footer>
+        In qualità di Affiliato Amazon, ricevo un guadagno dagli acquisti idonei.
+    </footer>
+
 </body>
 </html>
