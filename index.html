@@ -3,163 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>onlymaus.it</title>
+    <title>onlymaus.it - Braceria</title>
     <link rel="icon" type="image/png" href="img/Logo100.png">
     <style>
-        /* 🛑 BLOCCO TOTALE BARRE */
+        /* 🛑 RESET E ELIMINAZIONE BARRE */
         html, body {
             margin: 0; padding: 0;
             width: 100vw; height: 100vh;
-            overflow: hidden; 
+            overflow: hidden; /* Elimina scrollbar ovunque */
             background-color: #000;
             font-family: 'Segoe UI', Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        /* 📸 SFONDO CENTRATO */
-        .bg-scena {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+        /* 📸 SCENOGRAFIA DINAMICA (Sfondo) */
+        .wrapper {
+            position: relative;
+            width: 100%; height: 100%;
             background-image: url('img/torno%20subito.png');
             background-size: cover;
             background-position: center;
-            z-index: 1;
-        }
-
-        /* 🏗️ CONTENITORE GENERALE */
-        .main-wrapper {
-            position: relative;
-            z-index: 10;
-            width: 100%; height: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        /* 🥩 FIX TESTATA: NON SI MUOVE E NON SI SFORMA */
-        .header-box {
-            position: relative;
-            width: 450px; height: 160px;
-            margin-top: 20px;
+        /* 🥩 TESTATA ANCORATA IN ALTO (Scala ridotta) */
+        .header-container {
+            position: absolute;
+            top: 5vh; /* Distanza dall'alto basata sull'altezza monitor */
+            width: 60%; max-width: 320px; /* Scala ridotta della testata */
+            height: auto;
+            z-index: 10;
+        }
+        .img-testata { width: 85%; position: relative; z-index: 11; height: auto; display: block; margin: 0 auto;}
+
+        /* 📐 AREA PULSANTI ELASTICA (Sopra il camino) */
+        .content-area {
+            position: absolute;
+            top: 30vh; /* Allineamento sopra il camino centrale */
+            width: 90%;
+            max-width: 1000px; /* Contenitore più compatto */
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-        }
-        .header-logo {
-            width: 80%; /* Rimane dentro la cornice */
-            z-index: 12;
-            object-fit: contain;
+            padding: 0 20px;
+            box-sizing: border-box;
+            z-index: 5;
         }
 
-        /* 📐 POSIZIONAMENTO PULSANTI (Coordinate dirette) */
-        .area-pulsanti {
-            position: absolute;
-            top: 55%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100%; max-width: 1200px;
-            height: 450px;
-            pointer-events: none;
+        .column {
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* Spaziatura ridotta tra i pulsanti */
+            width: 45%; max-width: 250px; /* Scala ridotta dei pulsanti */
         }
 
-        .btn {
-            position: absolute;
-            width: 270px; height: 80px;
+        /* 🧱 IL CUSCINETTO CENTRALE (Libera il camino) */
+        .camino-spacer {
+            flex: 1;
+            max-width: 300px; /* Spazio proporzionale sopra il camino */
+            min-width: 100px;
+        }
+
+        /* 🔘 PULSANTI CON GLOW CIRCOLARE (Scala ridotta) */
+        .btn-frame {
+            position: relative;
+            width: 100%; height: 60px; /* Altezza ridotta dei pulsanti */
             display: flex; justify-content: center; align-items: center;
             text-decoration: none; transition: transform 0.2s;
-            pointer-events: auto;
+            overflow: hidden;
+            border-radius: 10px;
         }
-        .btn:hover { transform: scale(1.05); }
+        .btn-frame:hover { transform: scale(1.05); }
 
-        /* 📍 POSIZIONI SOTTO LE LUCI (FRECCE ROSSE) */
-        /* Sinistra */
-        .p-amazon { top: 0%; left: 5%; }
-        .p-setup  { top: 30%; left: 5%; }
-        .p-donazione { top: 60%; left: 5%; } /* Quello verde */
-
-        /* Destra */
-        .p-twitch  { top: 0%; right: 5%; }
-        .p-discord { top: 30%; right: 5%; }
-        .p-telegram { top: 60%; right: 5%; }
-
-        /* 🎨 EFFETTI E CORNICI */
-        .btn::before {
-            content: ''; position: absolute;
-            top: 20%; left: 15%; right: 15%; bottom: 20%;
-            z-index: 1; opacity: 0.7; filter: blur(15px);
-            background: radial-gradient(circle, var(--glow), transparent 70%);
+        /* 🎨 EFFETTO COLORE INTERNO (Scala ridotta) */
+        .btn-frame::before {
+            content: '';
+            position: absolute;
+            top: 20%; left: 10%; right: 10%; bottom: 20%;
+            z-index: 1;
+            background: radial-gradient(circle, var(--glow-color), transparent 70%);
+            opacity: 0.7;
+            filter: blur(10px); /* Sfocatura proporzionale */
         }
-        .c-amazon { --glow: #ff9900; }
-        .c-twitch { --glow: #9146ff; }
-        .c-discord { --glow: #5865f2; }
-        .c-telegram { --glow: #0088cc; }
-        .c-verde { --glow: #2ecc71; } /* Colore 100 Euro */
+
+        .bg-amazon   { --glow-color: #ff9900; }
+        .bg-twitch   { --glow-color: #9146ff; }
+        .bg-discord  { --glow-color: #5865f2; }
+        .bg-telegram { --glow-color: #0088cc; }
 
         .btn-text {
             z-index: 5; color: #fff; font-weight: bold;
-            text-transform: uppercase; text-align: center; font-size: 13px;
-            text-shadow: 2px 2px 4px #000;
+            text-transform: uppercase; text-align: center; font-size: 11px; /* Dimensione testo ridotta */
+            text-shadow: 2px 2px 4px rgba(0,0,0,1);
         }
 
-        .cornice-img {
+        .cornice {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             z-index: 4; object-fit: fill; pointer-events: none;
         }
 
-        /* 📝 FOOTER */
-        .footer {
-            position: absolute; bottom: 0; width: 100%;
-            background: rgba(0, 0, 0, 0.9); padding: 15px 0;
-            text-align: center; font-size: 11px; color: #aaa;
-            border-top: 1px solid #333;
+        /* 📝 FOOTER FISSO */
+        .footer-disclaimer {
+            position: absolute;
+            bottom: 0; width: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 10px 10px;
+            text-align: center;
+            font-size: 10px; color: #aaa;
+            z-index: 20;
+            border-top: 1px solid #222;
         }
 
-        /* MOBILE */
-        @media (max-width: 900px) {
-            html, body { overflow-y: auto; }
-            .area-pulsanti { position: relative; top: 0; left: 0; transform: none; display: flex; flex-direction: column; align-items: center; height: auto; margin-top: 40px; }
-            .btn { position: relative; top: auto; left: auto; right: auto; margin-bottom: 20px; }
-            .footer { position: relative; }
+        /* MOBILE (Colonna singola sotto i conetti) */
+        @media (max-width: 768px) {
+            html, body { overflow: auto; }
+            .content-area { flex-direction: column; top: 25vh; height: auto;}
+            .column { width: 100%; max-width: 250px; margin-bottom: 15px;}
+            .camino-spacer { display: none; }
+            .footer-disclaimer { position: relative; }
         }
     </style>
 </head>
 <body>
 
-    <div class="bg-scena"></div>
-
-    <div class="main-wrapper">
-        <div class="header-box">
-            <img src="img/testata.png" class="header-logo">
-            <img src="img/cornice.png" class="cornice-img">
+    <div class="wrapper">
+        <div class="header-container">
+            <img src="img/testata.png" class="img-testata" alt="M4USS Braceria">
+            <img src="img/cornice.png" class="cornice">
         </div>
 
-        <div class="area-pulsanti">
-            <a href="https://www.amazon.it/index.html?tag=onlymaus-21" target="_blank" class="btn p-amazon c-amazon">
-                <span class="btn-text">!amazon</span>
-                <img src="img/cornice.png" class="cornice-img">
-            </a>
-            <a href="https://www.amazon.it/hz/wishlist/ls/1UN05MW61D27C?tag=onlymaus-21" target="_blank" class="btn p-setup c-amazon">
-                <span class="btn-text">!setup</span>
-                <img src="img/cornice.png" class="cornice-img">
-            </a>
-            <a href="https://streamelements.com/only_maus/tip" target="_blank" class="btn p-donazione c-verde">
-                <span class="btn-text">💰 !donazione 💰</span>
-                <img src="img/cornice.png" class="cornice-img">
-            </a>
+        <div class="content-area">
+            <div class="column">
+                <a href="https://www.amazon.it/index.html?tag=onlymaus-21" target="_blank" class="btn-frame bg-amazon">
+                    <span class="btn-text">!amazon</span>
+                    <img src="img/cornice.png" class="cornice">
+                </a>
+                <a href="https://www.amazon.it/hz/wishlist/ls/1UN05MW61D27C?tag=onlymaus-21" target="_blank" class="btn-frame bg-amazon">
+                    <span class="btn-text">!setup</span>
+                    <img src="img/cornice.png" class="cornice">
+                </a>
+            </div>
 
-            <a href="https://www.twitch.tv/only_maus/" target="_blank" class="btn p-twitch c-twitch">
-                <span class="btn-text">Twitch</span>
-                <img src="img/cornice.png" class="cornice-img">
-            </a>
-            <a href="https://discord.gg/AwZ3Sa2m8f" target="_blank" class="btn p-discord c-discord">
-                <span class="btn-text">🥩 Discord 🥩<br>!discord</span>
-                <img src="img/cornice.png" class="cornice-img">
-            </a>
-            <a href="https://t.me/+t2VmbKd9WKwzNzJk" target="_blank" class="btn p-telegram c-telegram">
-                <span class="btn-text">🍳 Telegram 🍳<br>!telegram</span>
-                <img src="img/cornice.png" class="cornice-img">
-            </a>
+            <div class="camino-spacer"></div>
+
+            <div class="column">
+                <a href="https://www.twitch.tv/only_maus/" target="_blank" class="btn-frame bg-twitch">
+                    <span class="btn-text">Twitch</span>
+                    <img src="img/cornice.png" class="cornice">
+                </a>
+                <a href="https://discord.gg/AwZ3Sa2m8f" target="_blank" class="btn-frame bg-discord">
+                    <span class="btn-text">🥩 !discord 🥩</span>
+                    <img src="img/cornice.png" class="cornice">
+                </a>
+                <a href="https://t.me/+t2VmbKd9WKwzNzJk" target="_blank" class="btn-frame bg-telegram">
+                    <span class="btn-text">🍳 !telegram 🍳</span>
+                    <img src="img/cornice.png" class="cornice">
+                </a>
+            </div>
         </div>
 
-        <div class="footer">
+        <div class="footer-disclaimer">
             In qualità di Affiliato Amazon, ricevo un guadagno dagli acquisti idonei. <br>
             Il dominio <strong>mausstore.it</strong> è di proprietà esclusiva di Maurizio Patete.
         </div>
