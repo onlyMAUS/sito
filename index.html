@@ -14,26 +14,30 @@
             padding-top: 20px;
         }
 
-        /* 🥩 LA CORNICE DEL RITAGLIO */
+        /* La cornice che fa da "maschera" */
         .header-crop {
-            width: 100%;
-            max-width: 500px;    /* Stringiamo la visuale laterale */
-            height: 180px;       /* Stringiamo la visuale verticale (niente portone) */
-            overflow: hidden;    /* Fondamentale: nasconde tutto ciò che sta fuori */
+            width: 90%;
+            max-width: 500px;
+            height: 160px; /* Altezza ridotta per essere sicuri di tagliare il portone */
+            overflow: hidden;
             position: relative;
             border: 2px solid #ffffff;
-            border-radius: 8px;  /* Angoli leggermente arrotondati, più moderno */
+            border-radius: 4px;
         }
 
         .immagine-insegna {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
-            /* 🛠️ IL RITAGLIO VERO E PROPRIO */
-            /* Inquadra la parte superiore (22%) e aumenta lo zoom (scale 1.5) */
-            object-position: center 22%; 
-            transform: scale(1.5); 
+            height: auto; /* Manteniamo le proporzioni originali */
             display: block;
+            
+            /* 🛠️ CONTROLLO MANUALE */
+            transform: scale(1.8); /* Zoom deciso sull'insegna */
+            
+            /* Spostiamo l'immagine: 
+               Il secondo valore (70px) sposta l'immagine verso il BASSO.
+               Se vedi ancora il portone, aumenta questo numero (es. 90px).
+               Se vedi il cielo sopra l'insegna, diminuiscilo (es. 50px). */
+            margin-top: 70px; 
         }
     </style>
 </head>
