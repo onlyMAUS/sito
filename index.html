@@ -4,18 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Il Mio Sito</title>
+    
+    <link rel="icon" type="image/png" href="img/Logo100.png">
+
     <style>
         /* Reset e Font */
         body, h1, p { margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; }
-        body { background-color: #1a1a1a; color: white; }
+        body { background-color: #1a1a1a; color: white; overflow-x: hidden; }
 
-        /* Testata e Cornice Principale */
+        /* Container della Testata (Centrato 900x250) */
         .header-container {
             position: relative;
-            width: 100%;
-            max-width: 1920px;
-            aspect-ratio: 1920 / 558;
-            margin: 0 auto;
+            width: 900px;
+            height: 250px;
+            margin: 20px auto;
+            overflow: hidden;
         }
         .header-bg { width: 100%; height: 100%; object-fit: cover; display: block; }
         .header-frame {
@@ -23,11 +26,11 @@
             pointer-events: none; object-fit: fill;
         }
 
-        /* Animazione Titolo */
+        /* Animazione Titolo che svanisce */
         .fading-title {
             text-align: center;
-            margin: 30px 0;
-            font-size: 2.5rem;
+            margin: 20px 0;
+            font-size: 2.2rem;
             animation: fadeOut 2s ease-in-out forwards;
             animation-delay: 2s;
         }
@@ -36,40 +39,38 @@
             to { opacity: 0; visibility: hidden; }
         }
 
-        /* Container Pulsanti */
+        /* Container Pulsanti (Allineato alla testata) */
         .button-grid {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 20px;
-            padding: 20px;
-            max-width: 1200px;
+            gap: 15px;
+            padding: 10px;
+            max-width: 900px;
             margin: 0 auto;
         }
 
-        /* --- PULSANTI CON CORNICE PERSONALIZZATA --- */
+        /* Stile Pulsanti con Cornice */
         .btn {
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 15px 30px;
+            padding: 12px 20px;
             text-decoration: none;
             font-weight: bold;
             color: white;
             transition: transform 0.2s;
-            min-width: 220px;
+            min-width: 180px;
             cursor: pointer;
 
-            /* Applicazione della tua cornice come bordo */
-            border: 10px solid transparent; /* Spessore del bordo */
+            /* Cornice personalizzata */
+            border: 8px solid transparent;
             border-image-source: url('img/cornice.png');
-            border-image-slice: 30; /* Regola questo valore in base al disegno della cornice */
+            border-image-slice: 30;
             border-image-repeat: round;
-            
-            background-clip: padding-box; /* Evita che lo sfondo copra la cornice */
+            background-clip: padding-box;
         }
-
-        .btn:hover { transform: scale(1.05); }
+        .btn:hover { transform: scale(1.05); filter: brightness(1.1); }
 
         /* Colori Brand */
         .btn-twitch { background-color: #9146FF; }
@@ -77,8 +78,14 @@
         .btn-telegram { background-color: #0088cc; }
         .btn-amazon { background-color: #FF9900; color: #000; }
 
-        .btn img { height: 20px; margin-right: 10px; }
+        .btn img { height: 18px; margin-right: 8px; }
 
+        /* Responsive per mobile */
+        @media (max-width: 920px) {
+            .header-container { width: 95%; height: auto; aspect-ratio: 900 / 250; }
+            .header-bg, .header-frame { width: 100%; height: auto; position: relative; }
+            .header-frame { position: absolute; }
+        }
     </style>
 </head>
 <body>
@@ -91,18 +98,11 @@
     <h1 class="fading-title">Il Mio Sito</h1>
 
     <nav class="button-grid">
-        
-        <a href="https://twitch.tv/tuonome" class="btn btn-twitch">
-            Twitch
-        </a>
+        <a href="https://twitch.tv/tuonome" class="btn btn-twitch">Twitch</a>
 
-        <a href="https://discord.gg/invito" class="btn btn-discord">
-            🥩🍳 Braceria 🍴🥩
-        </a>
+        <a href="https://discord.gg/tuolink" class="btn btn-discord">🥩🍳 Braceria 🍴🥩</a>
 
-        <a href="https://t.me/tuocanale" class="btn btn-telegram">
-            🥩🍳 Braceria 🍴🥩
-        </a>
+        <a href="https://t.me/tuolink" class="btn btn-telegram">🥩🍳 Braceria 🍴🥩</a>
 
         <a href="https://www.amazon.it" class="btn btn-amazon">
             <img src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Amazon_icon.svg" alt=""> !amazon
@@ -111,7 +111,6 @@
         <a href="https://www.amazon.it/hz/wishlist/ls/1UN05MW61D27C?tag=mauriziopatet-21" class="btn btn-amazon">
             <img src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Amazon_icon.svg" alt=""> !setup
         </a>
-
     </nav>
 
 </body>
