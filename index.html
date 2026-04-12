@@ -8,35 +8,55 @@
         body {
             background-color: #000000;
             margin: 0;
-            padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
+            padding-top: 50px; /* Distanza dall'alto del browser */
         }
 
-        /* La "finestra" che ritaglia l'immagine */
-        .header-ritagliato {
-            width: 100%;
-            height: 200px; /* Altezza del taglio per escludere il portone */
-            overflow: hidden;
+        /* 1. Il Contenitore Master (Il Cerchio Magico) */
+        .cornice-ritagliata-container {
             position: relative;
-            border-bottom: 2px solid #1a1a1a; /* Linea sottile di stacco */
+            width: 320px;  /* Dimensione totale della cornice */
+            height: 320px;
+            overflow: hidden; /* Taglia l'immagine dell'insegna a cerchio */
+            border-radius: 50%; /* Lo rende un cerchio perfetto */
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.1); /* Leggero bagliore per staccare dal nero */
         }
 
-        .header-ritagliato img {
+        /* 2. L'immagine dell'insegna (SOTTO) */
+        .immagine-insegna-sfondo {
+            position: absolute;
+            width: 110%;  /* Leggermente più grande per coprire bene l'area interna */
+            height: 110%;
+            top: -5%;     /* Centra lo zoom */
+            left: -5%;    /* Centra lo zoom */
+            object-fit: cover;
+            /* SEGRETO N.1: Posizionamento verticale preciso (28% tiene l'insegna alta) */
+            object-position: center 28%; 
+            z-index: 1;
+        }
+
+        /* 3. La cornice (SOPRA) */
+        .immagine-cornice-sopra {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            /* 'cover' riempie lo spazio, 'top' tiene l'insegna ed esclude il basso */
-            object-fit: cover;
-            object-position: top; 
+            object-fit: contain; /* Mantiene la cornice perfetta senza deformarla */
+            z-index: 2;
+            pointer-events: none; /* Rende la cornice 'trasparente' al click */
         }
     </style>
 </head>
 <body>
 
-    <header class="header-ritagliato">
-        <img src="https://mausstore.it/img/header.png" alt="M4USS Header">
-    </header>
+    <div class="cornice-ritagliata-container">
+        <img src="img/offline.png" alt="M4USS" class="immagine-insegna-sfondo">
+        
+        <img src="img/cornice.png" alt="Cornice" class="immagine-cornice-sopra">
+    </div>
 
 </body>
 </html>
